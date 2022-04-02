@@ -1,0 +1,5 @@
+1) Login Component -> Connected to today's list
+2) Main page will show today's list 
+	functionalities:
+			
+
