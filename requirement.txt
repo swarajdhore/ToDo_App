@@ -3,3 +3,11 @@
 	functionalities:
 			
 
+Server:
+1) Npm init
+2) install express 
+3) Set up mongodb 
+4) Gitignore file	
+5) Install Babel	@babel/core	 @babel/preset-env @babel/cli @babel/node
+
+
