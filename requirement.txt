@@ -6,8 +6,10 @@
 Server:
 1) Npm init
 2) install express 
-3) Set up mongodb 
-4) Gitignore file	
-5) Install Babel	@babel/core	 @babel/preset-env @babel/cli @babel/node
-
+3) Install Nodemon (developement phase)
+4) Set up mongodb 
+5) Gitignore file	
+6) Install Babel	@babel/core	 @babel/preset-env @babel/cli @babel/node  (developement phase)
+7) Install mongoose cors helmet
+8) Concept of statics and methods in mongoose
 
