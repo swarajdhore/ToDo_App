@@ -2,21 +2,32 @@ require("dotenv").config();
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import passport from 'passport';
+
+//configs
+import routerConfig from './config/route.config';
 
 //Routes
 import Auth from './API/Auth/index'
-
+import Task from './API/Task/index'
 
 //Database Connection
 import ConnectDB from './database/connection'
+//import routeConfig from './config/route.config';
 
 const TodoApp = express();
-//const database = require("./database")
+
+//passport config
+routerConfig(passport);
 
 TodoApp.use(express.json());
 TodoApp.use(express.urlencoded({extended: false}));
 TodoApp.use(cors());
 TodoApp.use(helmet());
+TodoApp.use(passport.initialize());
+//TodoApp.use(passport.session());
+
+
 
 
 
@@ -25,6 +36,7 @@ TodoApp.get("/", (request,response)=>{
 });
 
 TodoApp.use("/auth", Auth);
+TodoApp.use("/task", Task);
 // TodoApp.get("/home",(req,res)=>{
 //     res.json({task:database.task})
 // });

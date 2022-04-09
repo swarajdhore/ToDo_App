@@ -12,4 +12,6 @@ Server:
 6) Install Babel	@babel/core	 @babel/preset-env @babel/cli @babel/node  (developement phase)
 7) Install mongoose cors helmet
 8) Concept of statics and methods in mongoose
+9) Joi package installed for validation purpose
+10) Installed Passport and passport-jwt package for private routes
 
