@@ -1,4 +1,5 @@
 require("dotenv").config();
+<<<<<<< HEAD
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -14,6 +15,17 @@ import Task from './API/Task/index'
 //Database Connection
 import ConnectDB from './database/connection'
 //import routeConfig from './config/route.config';
+=======
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+
+//Routes
+import Auth from "./API/Auth/index.js";
+
+//Database Connection
+import ConnectDB from "./database/connection.js";
+>>>>>>> fc8a49abd73369f7f344c83f329b83b1804e4986
 
 const TodoApp = express();
 
@@ -21,7 +33,7 @@ const TodoApp = express();
 routerConfig(passport);
 
 TodoApp.use(express.json());
-TodoApp.use(express.urlencoded({extended: false}));
+TodoApp.use(express.urlencoded({ extended: false }));
 TodoApp.use(cors());
 TodoApp.use(helmet());
 TodoApp.use(passport.initialize());
@@ -29,10 +41,8 @@ TodoApp.use(passport.initialize());
 
 
 
-
-
-TodoApp.get("/", (request,response)=>{
-    response.json({message:"Request Served !!"});
+TodoApp.get("/", (request, response) => {
+  response.json({ message: "Request Served !!" });
 });
 
 TodoApp.use("/auth", Auth);
@@ -41,8 +51,10 @@ TodoApp.use("/task", Task);
 //     res.json({task:database.task})
 // });
 
-
-TodoApp.listen(4000,()=> ConnectDB()
+TodoApp.listen(4000, () =>
+  ConnectDB()
     .then(() => console.log("Server is running"))
-    .catch(()=> console.log("Server is running but database connection failed")
-));
+    .catch(() =>
+      console.log("Server is running but database connection failed")
+    )
+);

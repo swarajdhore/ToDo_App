@@ -1,11 +1,18 @@
 //Library
+<<<<<<< HEAD
 import express from 'express';
 import passport from "passport";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+=======
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+>>>>>>> fc8a49abd73369f7f344c83f329b83b1804e4986
 
 //Models
-import {UserModel, TaskModel} from '../../database/allModels';
+import { UserModel } from "../../database/user/index";
+import { TaskModel } from "../../database/task/index";
 
 //validation
 import {ValidateSignup, ValidateLogin} from "../../validation/auth";
@@ -19,6 +26,7 @@ Params     None
 Access     Public
 Method     POST
 */
+<<<<<<< HEAD
 Router.post("/signup", async(req,res) =>{
     try{
         await ValidateSignup(req.body.credentials);
@@ -35,6 +43,21 @@ Router.post("/signup", async(req,res) =>{
         return res.status(500).json({error: error.message});
          
     }
+=======
+Router.post("/signup", async (req, res) => {
+  try {
+    await UserModel.findByEmailAndPhone(req.body.credentials);
+
+    // save to database
+    const newUser = await UserModel.create(req.body.credentials);
+
+    const token = newUser.generateJwtToken();
+
+    return res.status(200).json({ token, status: "success" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+>>>>>>> fc8a49abd73369f7f344c83f329b83b1804e4986
 });
 
 /*
@@ -44,6 +67,7 @@ Params     None
 Access     Public
 Method     POST
 */
+<<<<<<< HEAD
 Router.post('/login', async(req,res) =>{
     try{
         await ValidateLogin(req.body.credentials);
@@ -57,3 +81,16 @@ Router.post('/login', async(req,res) =>{
 })
 
 export default Router;
+=======
+Router.post("/login", async (req, res) => {
+  try {
+    const user = await UserModel.findByEmailAndPassword(req.body.credentials);
+    const token = user.generateJwtToken();
+    return res.status(200).json({ token, status: "success" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+export default Router;
+>>>>>>> fc8a49abd73369f7f344c83f329b83b1804e4986
