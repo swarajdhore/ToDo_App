@@ -21,7 +21,7 @@ const TodoApp = express();
 routerConfig(passport);
 
 TodoApp.use(express.json());
-TodoApp.use(express.urlencoded({ extended: false }));
+TodoApp.use(express.urlencoded({extended: false}));
 TodoApp.use(cors());
 TodoApp.use(helmet());
 TodoApp.use(passport.initialize());
@@ -29,8 +29,10 @@ TodoApp.use(passport.initialize());
 
 
 
-TodoApp.get("/", (request, response) => {
-  response.json({ message: "Request Served !!" });
+
+
+TodoApp.get("/", (request,response)=>{
+    response.json({message:"Request Served !!"});
 });
 
 TodoApp.use("/auth", Auth);
@@ -39,10 +41,8 @@ TodoApp.use("/task", Task);
 //     res.json({task:database.task})
 // });
 
-TodoApp.listen(4000, () =>
-  ConnectDB()
+
+TodoApp.listen(4000,()=> ConnectDB()
     .then(() => console.log("Server is running"))
-    .catch(() =>
-      console.log("Server is running but database connection failed")
-    )
-);
+    .catch(()=> console.log("Server is running but database connection failed")
+));

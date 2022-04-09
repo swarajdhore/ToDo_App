@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start":  "babel-node index",
+    "start": "babel-node index",
     "dev": "nodemon --exec babel-node index"
   },
   "author": "",

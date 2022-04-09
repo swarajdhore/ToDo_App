@@ -5,8 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 //Models
-import { UserModel } from "../../database/user/index";
-import { TaskModel } from "../../database/task/index";
+import {UserModel, TaskModel} from '../../database/allModels';
 
 //validation
 import {ValidateSignup, ValidateLogin} from "../../validation/auth";
