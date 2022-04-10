@@ -28,10 +28,6 @@ TodoApp.use(helmet());
 TodoApp.use(passport.initialize());
 //TodoApp.use(passport.session());
 
-
-
-
-
 TodoApp.get("/", (request,response)=>{
     response.json({message:"Request Served !!"});
 });
@@ -42,6 +38,9 @@ TodoApp.use("/user", User);
 // TodoApp.get("/home",(req,res)=>{
 //     res.json({task:database.task})
 // });
+
+
+
 
 
 TodoApp.listen(4000,()=> ConnectDB()
