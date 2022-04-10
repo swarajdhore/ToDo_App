@@ -10,6 +10,7 @@ import routerConfig from './config/route.config';
 //Routes
 import Auth from './API/Auth/index'
 import Task from './API/Task/index'
+import User from './API/User/index'
 
 //Database Connection
 import ConnectDB from './database/connection'
@@ -37,6 +38,7 @@ TodoApp.get("/", (request,response)=>{
 
 TodoApp.use("/auth", Auth);
 TodoApp.use("/task", Task);
+TodoApp.use("/user", User);
 // TodoApp.get("/home",(req,res)=>{
 //     res.json({task:database.task})
 // });

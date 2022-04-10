@@ -47,6 +47,16 @@ Router.post('/new/:_id',passport.authenticate('jwt', {session:false}) ,async (re
             new: true    //it means whatever object we return should be returned after updation
         }
         );
+
+        if (!addNewTask) {
+            const details = await TaskModel.create({
+              user: _id,
+              tasks: [tasks],
+            });
+            console.log(details);
+            return res.json({ task: details });
+          }
+
         return res.json({task:addNewTask});
     }catch(error){
         return res.status(500).json({error: error.message});
