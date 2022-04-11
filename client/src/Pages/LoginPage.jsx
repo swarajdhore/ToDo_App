@@ -1,43 +1,61 @@
-import { useState , useEffect} from "react";
+import {  Fragment, useState } from "react";
+import Button from "../components/UI/Button";
+import { useDispatch } from "react-redux";
+import { signIn } from "../Redux/Reducer/Auth/auth.action";
+import { getMySelf } from "../Redux/Reducer/User/user.action";
 
-function LoginPage(props) {
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
+export default function LoginPage() {
+  const dispatch = useDispatch();
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
 
   // send http request to fetch data
 
-  useEffect(() => {
-    const fetchData = async ()=> {
-      const result = await fetch("http://localhost:4000/user");
-      const jsonResult = await result.json;
+  // useEffect(() => {
+  //   const fetchData = async ()=> {
+  //     const result = await fetch("http://localhost:4000/user");
+  //     const jsonResult = await result.json;
 
-      setEnteredEmail(jsonResult);
-      setEnteredPassword(jsonResult);
-    }
+  //     setEnteredEmail(jsonResult);
+  //     setEnteredPassword(jsonResult);
+  //   }
 
-    fetchData();
-  }, [])
+  //   fetchData();
+  // }, [])
 
-  const emailHandler = (event) => {
-    setEnteredEmail(event.target.value);
-    console.log(event.target.value);
+  const handleChange = (e) => {
+    setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const passwordHandler = (event) => {
-    setEnteredPassword(event.target.value);
-    console.log(event.target.value);
+
+  // const emailHandler = (event) => {
+  //   setEnteredEmail(event.target.value);
+  //   console.log(event.target.value);
+  // };
+
+  // const passwordHandler = (event) => {
+  //   setEnteredPassword(event.target.value);
+  //   console.log(event.target.value);
+  // };
+
+  const submit = () => {
+    setUserData({
+      email: "",
+      password: "",
+    });
+    dispatch(signIn(userData));
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-  };
   return (
+    <>
     <div className="h-screen flex bg-gray-300">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
         <h2 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
           Login Form
         </h2>
-        <form onSubmit={submitHandler}>
+        <form>
           <div>
             <label htmlFor="email">E-Mail</label>
             <input
@@ -45,8 +63,8 @@ function LoginPage(props) {
               type="email"
               id="email"
               placeholder="Email"
-              value={enteredEmail}
-              onChange={emailHandler}
+              value={userData.email}
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -56,32 +74,33 @@ function LoginPage(props) {
               id="password"
               type="password"
               placeholder="Password"
-              value={enteredPassword}
-              onChange={passwordHandler}
+              value={userData.password}
+              onChange={handleChange}
             />
           </div>
           <div className="flex items-center mt-6">
-            <div className="justify-start">
-              <button
-                type="submit"
+            <div onClick={submit} className="justify-start">
+              <div
+                
                 className={`justify-start bg-green-DEFAULT py-2 px-4 text-sm text-black font-bold rounded border border-green focus:outline-none focus:border-green-dark`}
               >
                 Login
-              </button>
+              </div>
             </div>
             <div className="justify-end ">
-              <button
+              {/* <button
                 type="submit"
                 className={`justify-end bg-red-500 py-2 px-4 text-sm text-black font-bold rounded border border-red focus:outline-none focus:border-red-default`}
               >
                 Cancel
-              </button>
+              </button> */}
             </div>
           </div>
         </form>
       </div>
     </div>
+    </>
   );
 }
 
-export default LoginPage;
+

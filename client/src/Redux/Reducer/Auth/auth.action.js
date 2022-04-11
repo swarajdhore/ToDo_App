@@ -4,28 +4,29 @@ import axios from "axios";
 import { SIGN_IN, SIGN_OUT, SIGN_UP} from "./auth.type";
 
 // redux actions
-// import { getMySelf, clearUser } from "../User/user.action";
+import { getMySelf, clearUser } from "../User/user.action";
 
-// export const signIn = (userData) => async (dispatch) => {
-//   try {
-//     const User = await axios({
-//       method: "POST",
-//       url: "http://localhost:4000/auth/login",
-//       data: { credentials: userData },
-//     });
+export const signIn = (userData) => async (dispatch) => {
+  try {
+    const User = await axios({
+      method: "POST",
+      url: "http://localhost:4000/auth/login",
+      data: { credentials: userData },
+    });
+    
+    getMySelf();
 
-//     getMySelf();
-
-//     localStorage.setItem(
-//       "todoAppUser",
-//       JSON.stringify({ token: User.data.token })
-//     );
-//     window.location.href = "http://localhost:3000/todolist";
-//     return dispatch({ type: SIGN_IN, payload: User.data });
-//   } catch (error) {
-//     dispatch({ type: "ERROR", payload: error });
-//   }
-// };
+    localStorage.setItem(
+      "todoAppUser",
+      JSON.stringify({ token: User.data.token })
+    );
+    window.location.href = "http://localhost:3000/todolist";
+    return dispatch({ type: SIGN_IN, payload: User.data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "ERROR", payload: error });
+  }
+};
 
 export const signUp = (userData) => async (dispatch) => {
   try {
@@ -34,9 +35,8 @@ export const signUp = (userData) => async (dispatch) => {
       url: `http://localhost:4000/auth/signup`,
       data: { credentials: userData },
     });
-    console.log("Inside signUp");
-    window.location.href = `http://localhost:3000/todolist`;
-
+    console.log(User);
+    window.location.href = `http://localhost:3000/todolist/`;
     localStorage.setItem(
       "todoAppUser",
       JSON.stringify({ token: User.data.token })

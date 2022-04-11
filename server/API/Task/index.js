@@ -38,7 +38,7 @@ Router.post('/new/:_id',passport.authenticate('jwt', {session:false}) ,async (re
     try{
         const{_id} = req.params;
         const{tasks}= req.body;
-        const addNewTask = await Order.findOneAndUpdate({
+        const addNewTask = await TaskModel.findOneAndUpdate({
             user:_id
         },{
             $push: {tasks},     // or can be written as $push: {tasks: tasks} as both key and value name are same hence written only single word

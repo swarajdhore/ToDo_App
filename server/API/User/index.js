@@ -5,13 +5,13 @@ import {UserModel} from '../../database/allModels';
 
 const Router = express.Router();
 
-/*
-Route           /
-Des             Get user data
-Params          null
-Access          Public
-Method          GET
-*/
+// /*
+// Route           /
+// Des             Get user data
+// Params          null
+// Access          Public
+// Method          GET
+// */
 Router.get("/", passport.authenticate("jwt"), (req, res) => {
     try {
       const { email, fullName, phoneNumber} =
