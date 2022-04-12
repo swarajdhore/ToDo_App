@@ -6,6 +6,7 @@ import { SIGN_IN, SIGN_OUT, SIGN_UP} from "./auth.type";
 // redux actions
 import { getMySelf, clearUser } from "../User/user.action";
 
+export var isLoggedIn = 0;
 export const signIn = (userData) => async (dispatch) => {
   try {
     const User = await axios({
@@ -15,11 +16,17 @@ export const signIn = (userData) => async (dispatch) => {
     });
     
     getMySelf();
-
+    
     localStorage.setItem(
       "todoAppUser",
-      JSON.stringify({ token: User.data.token })
+      JSON.stringify( User.data.token )
     );
+    localStorage.setItem(
+      "todoAppUserID",
+      JSON.stringify( User.data.id )
+    );
+    isLoggedIn = 1; 
+
     window.location.href = "http://localhost:3000/todolist";
     return dispatch({ type: SIGN_IN, payload: User.data });
   } catch (error) {
@@ -39,8 +46,15 @@ export const signUp = (userData) => async (dispatch) => {
     window.location.href = `http://localhost:3000/todolist/`;
     localStorage.setItem(
       "todoAppUser",
-      JSON.stringify({ token: User.data.token })
+      JSON.stringify(User.data.token )
     );
+    localStorage.setItem(
+      "todoAppUserID",
+      JSON.stringify(User.data.id )
+    );
+    const saved = localStorage.getItem("todoAppUserID");
+    const initialValue = JSON.stringify(saved);
+    console.log(initialValue);
 
     return dispatch({ type: SIGN_UP, payload: User.data });
   } catch (error) {
@@ -49,14 +63,15 @@ export const signUp = (userData) => async (dispatch) => {
 };
 
 
-// export const signOut = () => async (dispatch) => {
-//   try {
-//     localStorage.removeItem("todoAppUser");
-//     clearUser();
-//     window.location.href = "http://localhost:3000/home";
+export const logOut = () => async (dispatch) => {
+  try {
+    localStorage.removeItem("todoAppUser");
+    localStorage.removeItem("todoAppUserID");
+    clearUser();
+    window.location.href = "http://localhost:3000/";
 
-//     return dispatch({ type: SIGN_OUT, payload: {} });
-//   } catch (error) {
-//     dispatch({ type: "ERROR", payload: error });
-//   }
-// };
+    return dispatch({ type: SIGN_OUT, payload: {} });
+  } catch (error) {
+    dispatch({ type: "ERROR", payload: error });
+  }
+};

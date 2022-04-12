@@ -27,8 +27,10 @@ Router.post("/signup",async (req,res) =>{
         await UserModel.findByEmailAndPhone(req.body.credentials);
         // save to database
         const newUser = await UserModel.create(req.body.credentials);
+        console.log(newUser);
         const token = newUser.generateJwtToken();
-        return res.status(200).json({token, status:"success"});
+        const id = newUser._id;
+        return res.status(200).json({token,id, status:"success"});
      } catch(error) {
         return res.status(500).json({error: error.message});
     }
@@ -46,7 +48,8 @@ Router.post('/login', async(req,res) =>{
         await ValidateLogin(req.body.credentials);
         const user = await UserModel.findByEmailAndPassword(req.body.credentials);
         const token = user.generateJwtToken();
-        return res.status(200).json({token, status:"success"});
+        const id = user._id;
+        return res.status(200).json({token,id, status:"success"});
 
     } catch(error){
         return res.status(500).json({error:error.message});

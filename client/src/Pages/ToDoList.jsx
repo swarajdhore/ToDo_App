@@ -1,31 +1,49 @@
 import { Link } from "react-router-dom";
 import Task from "../components/Task/Task"
-import React, {Component} from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
-import ListGroup from 'react-bootstrap/ListGroup';
-import 
+import React from 'react';
+import { useDispatch } from "react-redux";
+import {getTask} from "../Redux/Reducer/Task/task.action";
+import {Tasklist} from "../Redux/Reducer/Task/task.action";
 
-function ToDoList(props) {
+export default function ToDoList(props) {
   const dispatch = useDispatch();
-  const [taskData, setTaskData] = useState();
+  //const [taskData, setTaskData] = useState();
+  //console.log(localStorage.getItem("tasks"));
+  const tasks = localStorage.getItem("tasks");
+  const taskData = {
+    name : tasks.taskname,
+    description :  tasks.tsakdesc,
+    date : tasks.time,
+  }
+  // const tasksList = getTask();
+  // console.log(tasksList);
   return (
     <div className="h-screen flex bg-gray-300">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
         <h1>ToDoList</h1>
-        {/* <button>
+        <button>
           <Link to="/addtask">Add Task</Link>
         </button>
-          <Task name="assignment"
+        <h2>{taskData.name}</h2>
+        <div>{taskData.description}</div>
+        <div>{taskData.date}</div>
+         {/*  <Task name="assignment"
             status="incomplete"
           />
            <Task name="assignment"
             status="incomplete"
           /> */}
+          {/* {tasks.map((tasks) => { */}
+          {/* <div onClick={getTask()}>Click Here</div> */}
+          {/* <Task 
+            title={tasks.taskname}
+            description={tasks.taskdesc}
+            time={tasks.time}
+            status={tasks.status}
+          />
+          <Task /> */}
+          {/* })} */}
+          {/* <Task /> */}
           <div>
             <table className="table-auto">
             <thead>
@@ -44,7 +62,7 @@ function ToDoList(props) {
   );
 }
 
-export default ToDoList;
+
 
 
 

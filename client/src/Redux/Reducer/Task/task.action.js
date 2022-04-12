@@ -1,48 +1,56 @@
 import axios from "axios";
 
 // Redux Types
-import { CREATE_TASK } from "./task.type";
+import { GET_TASK,ADD_TASK } from "./task.type";
 
-export const getTask = (taskData) => async (dispatch) => {
+export var Tasklist;
+export const getTask = () => async (dispatch) => {
+    const id_value = localStorage.getItem("todoAppUserID");
+    const id = JSON.parse(id_value);
+    const token_value = localStorage.getItem("todoAppUser");
+    const token = JSON.parse(token_value);
+    console.log(id)
+    console.log(token)
   try {
-    const order = await axios({
+    const Task = await axios({
       method: "GET",
-      url: "http://localhost:4000/todolist",
-      data: { taskData },
+      url: `http://localhost:4000/task/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
     });
+    Tasklist = Task.data.tasks;
+    //localStorage.setItem(Task.data.tasks);
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify( Task.data.tasks )
+      );
 
-    return dispatch({ type: CREATE_TASK, payload: Task.data });
+    console.log(Task.data.tasks.tasks);
+    return dispatch({ type: GET_TASK, payload: Task.data });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
   }
 };
 
-// export const orderPlaced =
-//   (cartData, razorpay_payment_id) => async (dispatch) => {
-//     try {
-//       const placeOrder = cartData.map((foodItem) => {
-//         const orderDetails = {
-//           food: foodItem._id,
-//           quantity: foodItem.quantity,
-//           paymode: "ONLINE",
-//           paymentDetails: {
-//             itemTotal: foodItem.totalPrice,
-//             promo: 0,
-//             tax: 0,
-//             razorpay_payment_id,
-//           },
-//         };
-//         axios({
-//           method: "POST",
-//           url: `http://localhost:4000/order/new`,
-//           data: { orderDetails },
-//         });
-//       });
+export const addTask = (taskData) => async (dispatch) => {
+    const id_value = localStorage.getItem("todoAppUserID");
+    const id = JSON.parse(id_value);
+    const token_value = localStorage.getItem("todoAppUser");
+    const token = JSON.parse(token_value);
+    console.log(id)
+    console.log(token)
+  try {
+      console.log("hello there")
+    const Task = await axios({
+      method: "POST",
+      url: `http://localhost:4000/task/new/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
+      data: { tasks: taskData },
+    });
+    window.location.href = "http://localhost:3000/todolist";
+    return dispatch({ type: ADD_TASK, payload: Task.data });
+  } catch (error) {
+      console.log(error)
+    return dispatch({ type: "ERROR", payload: error });
+  }
+};
 
-//       await Promise.all(placeOrder);
-
-//       return dispatch({ type: ORDER_PLACED, payload: {} });
-//     } catch (error) {
-//       return dispatch({ type: "ERROR", payload: error });
-//     }
-//   };

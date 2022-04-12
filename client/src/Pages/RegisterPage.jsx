@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { signUp } from "../Redux/Reducer/Auth/auth.action";
 
 export default function RegisterPage() {
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
       fullName: "",
       email: "",

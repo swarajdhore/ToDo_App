@@ -4,9 +4,55 @@ import Home from "../../Pages/Home";
 import LoginPage from "../../Pages/LoginPage";
 import RegisterPage from "../../Pages/RegisterPage";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import {isLoggedIn} from "../../Pages/LoginPage";
+import { logOut } from "../../Redux/Reducer/Auth/auth.action";
+import React from "react";
+import { useDispatch } from "react";
+import Logout from "../Logout/Logout";
 
-function NavRoutes(params) {
-  return (
+
+function NavRoutes() {
+  // const dispatch = useDispatch();
+  // const logOutHandler = (event) => {
+  //   dispatch(logOut());
+  //   event.preventDefault();
+  // };
+  if (localStorage.todoAppUserID){
+    return (<div className="h-16">
+      <Router>
+        <div className="bg-blue-dark flex items-center justify-between">
+          <h1 className="ml-0 pl-10 space-x-8">ToDoList</h1>
+        </div>
+        <div className="md:block bg-blue-dark">
+          <ul className="ml-60 mr-20 pl-60 flex justify-end items-center space-x-8">
+            {/* <li className="hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+              <Link to="/">Home</Link>
+            </li>
+            <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+              <Link to="/todolist">ToDoList</Link>
+            </li> */}
+             <Logout />
+             
+            {/* <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+              <Link to="/login">Login</Link>
+            </li>
+            <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+              <Link to="/Register">Register</Link>
+            </li> */}
+          </ul>
+        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/todolist" element={<ToDoList />}></Route>
+          {/* <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />}></Route> */}
+          <Route path="/addtask" element={<AddTasks />}></Route>
+        </Routes>
+      </Router>
+    </div>
+  );
+  }
+  else {return (
     <div className="h-16">
       <Router>
         <div className="bg-blue-dark flex items-center justify-between">
@@ -14,12 +60,12 @@ function NavRoutes(params) {
         </div>
         <div className="md:block bg-blue-dark">
           <ul className="ml-60 mr-20 pl-60 flex justify-end items-center space-x-8">
-            <li className="hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+            {/* <li className="hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
               <Link to="/">Home</Link>
             </li>
             <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
               <Link to="/todolist">ToDoList</Link>
-            </li>
+            </li> */}
             <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
               <Link to="/login">Login</Link>
             </li>
@@ -37,7 +83,37 @@ function NavRoutes(params) {
         </Routes>
       </Router>
     </div>
-  );
+  );}
+  // return (<div className="h-16">
+  //     <Router>
+  //       <div className="bg-blue-dark flex items-center justify-between">
+  //         <h1 className="ml-0 pl-10 space-x-8">ToDoList</h1>
+  //       </div>
+  //       <div className="md:block bg-blue-dark">
+  //         <ul className="ml-60 mr-20 pl-60 flex justify-end items-center space-x-8">
+  //           <li className="hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+  //             <Link to="/">Home</Link>
+  //           </li>
+  //           <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+  //             <Link to="/todolist">ToDoList</Link>
+  //           </li>
+  //           <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+  //             <Link to="/login">Login</Link>
+  //           </li>
+  //           <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+  //             <Link to="/Register">Register</Link>
+  //           </li>
+  //         </ul>
+  //       </div>
+  //       <Routes>
+  //         <Route path="/" element={<Home />} />
+  //         <Route path="/todolist" element={<ToDoList />}></Route>
+  //         <Route path="/login" element={<LoginPage />}></Route>
+  //         <Route path="/register" element={<RegisterPage />}></Route>
+  //         <Route path="/addtask" element={<AddTasks />}></Route>
+  //       </Routes>
+  //     </Router>
+  //   </div>)
 }
 
 export default NavRoutes;
