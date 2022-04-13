@@ -1,8 +1,7 @@
-import {  Fragment, useState } from "react";
-import Button from "../components/UI/Button";
+import {  useState } from "react";
 import { useDispatch } from "react-redux";
 import { signIn } from "../Redux/Reducer/Auth/auth.action";
-import { getMySelf } from "../Redux/Reducer/User/user.action";
+import { getTask } from "../Redux/Reducer/Task/task.action";
 
 
 export default function LoginPage() {
@@ -84,8 +83,8 @@ export default function LoginPage() {
           <div className="flex items-center mt-6">
             <div onClick={submit} className="justify-start">
               <div
-                
-                className={`justify-start bg-green-DEFAULT py-2 px-4 text-sm text-black font-bold rounded border border-green focus:outline-none focus:border-green-dark`}
+                onload={getTask()}
+                className={`justify-start bg-green-400 py-2 px-4 text-sm text-black  font-bold rounded border border-green focus:outline-none focus:border-green-dark`}
               >
                 Login
               </div>

@@ -5,6 +5,7 @@ import { SIGN_IN, SIGN_OUT, SIGN_UP} from "./auth.type";
 
 // redux actions
 import { getMySelf, clearUser } from "../User/user.action";
+import { getTask } from "../Task/task.action";
 
 export var isLoggedIn = 0;
 export const signIn = (userData) => async (dispatch) => {
@@ -26,8 +27,8 @@ export const signIn = (userData) => async (dispatch) => {
       JSON.stringify( User.data.id )
     );
     isLoggedIn = 1; 
-
-    window.location.href = "http://localhost:3000/todolist";
+    getTask();  
+    window.location.href = "http://localhost:3000/";
     return dispatch({ type: SIGN_IN, payload: User.data });
   } catch (error) {
     console.log(error);
@@ -67,6 +68,7 @@ export const logOut = () => async (dispatch) => {
   try {
     localStorage.removeItem("todoAppUser");
     localStorage.removeItem("todoAppUserID");
+    localStorage.removeItem("tasks");
     clearUser();
     window.location.href = "http://localhost:3000/";
 

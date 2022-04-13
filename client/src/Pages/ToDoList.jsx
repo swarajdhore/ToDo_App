@@ -1,22 +1,78 @@
 import { Link } from "react-router-dom";
 import Task from "../components/Task/Task"
 import React from 'react';
-import { useDispatch } from "react-redux";
-import {getTask} from "../Redux/Reducer/Task/task.action";
-import {Tasklist} from "../Redux/Reducer/Task/task.action";
+import { getTask } from "../Redux/Reducer/Task/task.action";
 
-export default function ToDoList(props) {
-  const dispatch = useDispatch();
-  //const [taskData, setTaskData] = useState();
+// import { useDispatch } from "react-redux";
+// import {getTask} from "../Redux/Reducer/Task/task.action";
+// import {Tasklist} from "../Redux/Reducer/Task/task.action";
+// import {useState} from "react";
+
+
+
+export default function ToDoList() {
+  //const dispatch = useDispatch();
+  // const [taskData, setTaskData] = useState(() => {
+  //   const tasks = localStorage.getItem("tasks");
+  //   const savedTasks = JSON.parse(tasks);
+  //   return savedTasks
+  // });
   //console.log(localStorage.getItem("tasks"));
-  const tasks = localStorage.getItem("tasks");
-  const taskData = {
-    name : tasks.taskname,
-    description :  tasks.tsakdesc,
-    date : tasks.time,
+  
+  if(localStorage.getItem("tasks"))
+  {
+    // const promise2 =  new Promise(Task);
+    // const y = await promise2;
+  
+    // window.location.reload();
+  const tasks = localStorage.getItem("tasks");    
+  const savedTasks = JSON.parse(tasks);
+  const taskList = savedTasks.tasks;
+  console.log(taskList);
+  window.onpaint = getTask();
+  
+  
+  return (
+    <div onload={getTask()} className="h-screen flex bg-gray-300">
+      <div className="w-full max-wd- m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
+        <h1>ToDoList</h1>
+        <div className=" justify-start py-2 px-4 rounded border focus:outline-none">
+          <Link to="/addtask">Add Task</Link>
+        </div>
+        
+       <div onClick={getTask()}>Update Page</div>
+        {/* <h2>{taskList[0].taskname}</h2>
+        <div>{taskList[0].taskdesc}</div>
+        <div>{taskList[0].time}</div> */}
+         {/*  <Task name="assignment"
+            status="incomplete"
+          />
+           <Task name="assignment"
+            status="incomplete"
+          /> */}
+          <thead className="bg-gray-50">
+              <tr className="px-1 py-3 text-mid text-lg font-medium text-gray-500 flex">
+                <th className="border-solid  flex overflow-x-auto w-80">Name</th>
+                <th className="border-solid  flex overflow-x-auto w-80">Description</th>
+                <th className="border-solid  flex overflow-x-auto w-80">Date</th>
+                <th className="border-solid  flex-initial w-80">Status</th>
+              </tr>
+            </thead>
+          
+          {taskList.map((taskList) => (
+          <Task 
+            title={taskList.taskname}
+            description={taskList.taskdesc}
+            time={taskList.time}
+            status={taskList.status}
+          />
+          ))}
+          {/* <Task /> */}
+      </div>
+    </div>
+  );
   }
-  // const tasksList = getTask();
-  // console.log(tasksList);
+  else {
   return (
     <div className="h-screen flex bg-gray-300">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
@@ -24,27 +80,10 @@ export default function ToDoList(props) {
         <button>
           <Link to="/addtask">Add Task</Link>
         </button>
-        <h2>{taskData.name}</h2>
-        <div>{taskData.description}</div>
-        <div>{taskData.date}</div>
-         {/*  <Task name="assignment"
-            status="incomplete"
-          />
-           <Task name="assignment"
-            status="incomplete"
-          /> */}
-          {/* {tasks.map((tasks) => { */}
-          {/* <div onClick={getTask()}>Click Here</div> */}
-          {/* <Task 
-            title={tasks.taskname}
-            description={tasks.taskdesc}
-            time={tasks.time}
-            status={tasks.status}
-          />
-          <Task /> */}
-          {/* })} */}
-          {/* <Task /> */}
-          <div>
+        <h1> No Task Found </h1>
+        <div onClick={getTask()}>Click Here</div>
+        
+          {/* <div>
             <table className="table-auto">
             <thead>
               <tr className="flex">
@@ -56,10 +95,19 @@ export default function ToDoList(props) {
 
             </tbody>
             </table>
-          </div>
+          </div> */}
       </div>
     </div>
-  );
+  );}
+
+  // const taskData = {
+  //   name : tasks.taskname,
+  //   description :  tasks.tsakdesc,
+  //   date : tasks.time,
+  // }
+  // const tasksList = getTask();
+  // console.log(tasksList);
+        
 }
 
 

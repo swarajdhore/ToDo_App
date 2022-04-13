@@ -1,5 +1,4 @@
 import {  Fragment, useState } from "react";
-import Button from "../components/UI/Button";
 import { useDispatch } from "react-redux";
 import { signUp } from "../Redux/Reducer/Auth/auth.action";
 

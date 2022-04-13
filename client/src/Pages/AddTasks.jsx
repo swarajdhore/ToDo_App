@@ -1,5 +1,5 @@
+import { getTask } from "../Redux/Reducer/Task/task.action";
 import { useState } from "react";
-import Button from "../components/UI/Button";
 import { useDispatch } from "react-redux";
 import { addTask } from "../Redux/Reducer/Task/task.action";
 
@@ -65,10 +65,10 @@ export default function AddTasks() {
             ></input>
           </div>
           <div >
-            <label htmlFor="time" className=" font-medium">
+            <label htmlFor="time" className="font-medium">
               Date
             </label>
-              <input
+            <input
               type="datetime-local"
               name="time"
               id="time"
@@ -80,14 +80,15 @@ export default function AddTasks() {
           </div>
           <div >
           <label htmlFor="status">Status</label>
-            <select name="cars" id="cars" value={taskData.status} onChange={handleChange}>
+            <select type="datalist" name="status" id="status" value={taskData.status} onChange={handleChange}>
+              <option value="--select--" selected>--select--</option>
               <option value="Pending">Pending</option>
               <option value="Completed">Completed</option>
               <option value="On-Hold">On-Hold</option>
             </select>
           </div>
           <div onClick={submit}>
-            <div>Add Task</div>
+            <div onClick={getTask()}>Add Task</div>
           </div>
         </form>
       </div>
