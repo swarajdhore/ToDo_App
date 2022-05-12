@@ -2,7 +2,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <div>
+    <div className="mt-0 bg-blue-dark">
       <Navbar />
     </div>
   );

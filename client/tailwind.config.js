@@ -18,8 +18,8 @@ module.exports = {
         },
         green: {
           light: "#6fcf97",
-          DEFAULT: "#27AE60",
-          dark: "#219653",
+          dark: "#27AE60",
+          DEFAULT: "#219653",
           darker: "#1e874b",
         },
         red: {
@@ -46,6 +46,22 @@ module.exports = {
         "2rem": "2rem",
       },
     },
+    screens: {
+      'sm': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
+
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    }
   },
   variants: {
     extend: {},

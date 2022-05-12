@@ -2,7 +2,7 @@ import { getTask } from "../Redux/Reducer/Task/task.action";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "../Redux/Reducer/Task/task.action";
-
+import Background_Image from "../components/Background_Image/Background_Image";
 export default function AddTasks() {
   const dispatch = useDispatch();
   const [taskData, setTaskData] = useState({
@@ -34,11 +34,12 @@ export default function AddTasks() {
 
   return (
     <>
-    <div className="h-screen flex ">
-      <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
+    <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    
+      <div className="w-full max-w-md m-auto shadow-default py-10 px-16">
         <form>
           <div >
-            <label htmlFor="taskname" className="font-medium">
+            <label htmlFor="taskname" className="font-semibold">
               Task Name
             </label>
             <input
@@ -51,7 +52,7 @@ export default function AddTasks() {
               ></input>
           </div>
           <div >
-            <label htmlFor="taskdesc" className="font-medium">
+            <label htmlFor="taskdesc" className="font-semibold">
               Description
             </label>
             <input
@@ -65,7 +66,7 @@ export default function AddTasks() {
             ></input>
           </div>
           <div >
-            <label htmlFor="time" className="font-medium">
+            <label htmlFor="time" className="font-semibold">
               Date
             </label>
             <input
@@ -79,15 +80,15 @@ export default function AddTasks() {
              
           </div>
           <div >
-          <label htmlFor="status">Status</label>
-            <select type="datalist" name="status" id="status" value={taskData.status} onChange={handleChange}>
-              <option value="--select--" selected>--select--</option>
+          <label htmlFor="status" className="font-semibold pr-4">Status</label>
+          <select type="datalist" name="status" id="status" value={taskData.status} onChange={handleChange}>
+              <option value="--select--" selected className="font-semibold">--select--</option>
               <option value="Pending">Pending</option>
               <option value="Completed">Completed</option>
               <option value="On-Hold">On-Hold</option>
             </select>
           </div>
-          <div onClick={submit}>
+          <div className="mt-6 bg-blue-dark hover:bg-blue-faint text-center py-2 rounded border focus:outline-none" onClick={submit}>
             <div onClick={getTask()}>Add Task</div>
           </div>
         </form>

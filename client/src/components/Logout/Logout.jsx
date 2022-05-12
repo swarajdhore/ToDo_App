@@ -9,7 +9,8 @@ export default function Logout(){
     dispatch(logOut());
     event.preventDefault();
   }
-  return <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
+  // hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium
+  return <li className=" ">
                <Link onClick={logOutHandler} to="/">Logout</Link>
             </li>
     // return (<li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">

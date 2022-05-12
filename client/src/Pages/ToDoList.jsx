@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import Task from "../components/Task/Task"
 import React from 'react';
 import { getTask } from "../Redux/Reducer/Task/task.action";
+import Background_Image from "../components/Background_Image/Background_Image";
+import "../components/Task/Task.css";
 
 // import { useDispatch } from "react-redux";
 // import {getTask} from "../Redux/Reducer/Task/task.action";
@@ -30,17 +32,25 @@ export default function ToDoList() {
   const taskList = savedTasks.tasks;
   console.log(taskList);
   window.onpaint = getTask();
+  // const keys = Object.keys(taskList[(taskList.length)-1]);
+  // const idvalue = taskList[(taskList.length)-1][keys[4]];
   
   
   return (
-    <div onload={getTask()} className="h-screen flex bg-gray-300">
-      <div className="w-full max-wd- m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
-        <h1>ToDoList</h1>
-        <div className=" justify-start py-2 px-4 rounded border focus:outline-none">
+    <div className="h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500" >    
+    
+    <div  onload={getTask()} className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    <div className="w-full my-40 shadow-default py-10 px-8">
+     <div className="text-center mb-4">
+        <h1 className="font-semibold text-xl">ToDoList</h1>
+        <div className="bg-blue-dark hover:bg-blue-faint justify-start py-2 my-2 rounded border focus:outline-none ">
           <Link to="/addtask">Add Task</Link>
         </div>
-        
-       <div onClick={getTask()}>Update Page</div>
+       <div className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-2 my-2 rounded border focus:outline-none"
+        onClick={getTask()}>
+        Update Page
+        </div>
+        </div>
         {/* <h2>{taskList[0].taskname}</h2>
         <div>{taskList[0].taskdesc}</div>
         <div>{taskList[0].time}</div> */}
@@ -50,38 +60,54 @@ export default function ToDoList() {
            <Task name="assignment"
             status="incomplete"
           /> */}
-          <thead className="bg-gray-50">
-              <tr className="px-1 py-3 text-mid text-lg font-medium text-gray-500 flex">
-                <th className="border-solid  flex overflow-x-auto w-80">Name</th>
-                <th className="border-solid  flex overflow-x-auto w-80">Description</th>
-                <th className="border-solid  flex overflow-x-auto w-80">Date</th>
-                <th className="border-solid  flex-initial w-80">Status</th>
+          <table>
+          <thead>
+          {/* px-1 py-3 text-mid text-lg font-medium text-gray-500 flex */}
+              <tr>
+              {/* border-solid  flex overflow-x-auto w-50 */}
+                <th className="w-1/5">Name</th>
+                <th className="w-1/2">Description</th>
+                <th >Date</th>
+                <th className="w-1/6">Status</th>
+                {/* <th>{taskList._id}</th> */}
+                {/* <th>{idvalue}</th> */}
               </tr>
-            </thead>
-          
-          {taskList.map((taskList) => (
+              </thead>
+              </table>
+          {taskList.slice(0)
+           .reverse().map((taskList) => (
           <Task 
+            key={taskList._id} // to take id from DB
             title={taskList.taskname}
             description={taskList.taskdesc}
             time={taskList.time}
-            status={taskList.status}
+            status={taskList.status} 
           />
           ))}
+          
+            
+          
           {/* <Task /> */}
-      </div>
+      
+    </div>
+  </div>
     </div>
   );
+ 
   }
   else {
   return (
-    <div className="h-screen flex bg-gray-300">
-      <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
-        <h1>ToDoList</h1>
-        <button>
+    <div className=" h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500">
+      <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+      <div className="w-2/4 my-32 ml-60 shadow-default py-10 px-8">
+        <div className="text-center">
+          <h1 className="font-semibold text-xl">ToDoList</h1>
+        <button className=" ">
           <Link to="/addtask">Add Task</Link>
         </button>
-        <h1> No Task Found </h1>
-        <div onClick={getTask()}>Click Here</div>
+        <h1 className="font-semibold text-lg"> No Task Found </h1>
+        <div className="" onClick={getTask()}>Click Here</div>
+        </div>
         
           {/* <div>
             <table className="table-auto">
@@ -97,6 +123,7 @@ export default function ToDoList() {
             </table>
           </div> */}
       </div>
+     </div>
     </div>
   );}
 
@@ -107,7 +134,8 @@ export default function ToDoList() {
   // }
   // const tasksList = getTask();
   // console.log(tasksList);
-        
+  
+     
 }
 
 

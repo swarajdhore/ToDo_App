@@ -1,5 +1,6 @@
 import {  Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
+import Background_Image from "../components/Background_Image/Background_Image";
 import { signUp } from "../Redux/Reducer/Auth/auth.action";
 
 export default function RegisterPage() {
@@ -35,14 +36,15 @@ export default function RegisterPage() {
 
   return (
     <>
-    <div className="h-screen flex bg-gray-300">
-      <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
+    
+    <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+      <div className="w-full max-w-md m-auto shadow-default py-10 px-16">
         <h2 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
           Register Form
         </h2>
         <form>
           <div>
-            <label htmlFor="fullName" className="text-gray-600 font-medium">Name</label>
+            <label htmlFor="fullName" className="font-semibold">Name</label>
             <input
               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
               id="fullName"
@@ -53,7 +55,7 @@ export default function RegisterPage() {
             />
           </div>
           <div>
-            <label htmlFor="email" className="text-gray-600 font-medium">E-Mail</label>
+            <label htmlFor="email" className="font-semibold">E-Mail</label>
             <input
               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
               id="email"
@@ -64,7 +66,7 @@ export default function RegisterPage() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="text-gray-600 font-medium">Password</label>
+            <label htmlFor="password" className="font-semibold">Password</label>
             <input
               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
               id="password"
@@ -75,7 +77,7 @@ export default function RegisterPage() {
             />
           </div>
           <div>
-            <label htmlFor="phoneNumber" className="text-gray-600 font-medium">Phone Number</label>
+            <label htmlFor="phoneNumber" className="font-semibold">Phone Number</label>
             <input
               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
               id="phoneNumber"
@@ -91,14 +93,15 @@ export default function RegisterPage() {
           <div className="justify-start">
               <div onClick={submit}
                 type="submit"
-                className={` rounded-lg justify-start bg-green-DEFAULT py-2 px-4 text-sm text-black font-bold border border-green focus:outline-none focus:border-green-dark`}
+                className={`rounded-lg text-center bg-green-dark py-2 px-4 text-sm text-black font-bold border border-green focus:outline-none focus:border-green-dark`}
               >
-                Login
+                Register
               </div>
             </div>
         </form>
       </div>
     </div>
+    
     </>
   );
 }

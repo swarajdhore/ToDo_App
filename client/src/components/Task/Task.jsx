@@ -4,6 +4,7 @@ import {Fragment, useState} from "react"
 import Status from "./Status";
 import { addTask } from "../../Redux/Reducer/Task/task.action";
 import { useDispatch } from "react-redux";
+import "./Task.css";
 
 function Task(props) {
   
@@ -15,38 +16,43 @@ function Task(props) {
 
     if(localStorage.getItem("tasks"))
   {
-    // window.location.reload();
-  const tasks = localStorage.getItem("tasks");    
+    const tasks = localStorage.getItem("tasks");    
   const savedTasks = JSON.parse(tasks);
   const taskList = savedTasks.tasks;
   const keys = Object.keys(taskList[(taskList.length)-1]);
-  console.log(taskList[(taskList.length)-1][keys[4]]);
-  //const idvalue = taskList[(taskList.length)-1][keys[4]];
+ 
+  const idvalue = taskList[(taskList.length)-1][keys[4]];
   var tables = document.getElementsByTagName("table");
   for (var i = 0; i < tables.length; i++) {
     var table = tables[i];
-    var idvalue = taskList[i][keys[4]];
+    //var idvalue = taskList[i][keys[4]];
     table.setAttribute("id", idvalue);
     console.log("falseeeee");
   } 
 }
 
   return (
-    <Fragment>
-      <table className="min-w-full divide-y divide-gray-200 table-fixed border-separate">
-            <tbody className="bg-gray-50">
-            <tr className="px-1 py-3 text-mid text-lg font-medium text-gray-500 flex">
-                <td className="border-solid border-black-200 h-10 flex overflow-x-auto w-80 whitespace-nowrap">{props.title}</td>
-                <td className="border-solid border-black-200 h-10 flex overflow-x-auto w-80 whitespace-nowrap">{props.description}</td>
-                <td className="border-solid border-black-200 h-10 flex overflow-x-auto w-80 whitespace-nowrap">{time}</td>
-                <td className="border-solid border-black-200 h-10 flex-initial w-80 whitespace-nowrap"> 
-                <Status 
+    <>
+    {/* min-w-full divide-y divide-gray-200 table-fixed border-separate */}
+      <table>
+      {/* bg-gray-50 */}
+            <tbody>
+            {/* px-1 py-3 text-mid text-lg font-medium text-gray-500 flex */}
+            <tr>
+                {/* <td className="border-solid border-black-200 h-10 flex overflow-x-auto w-80 whitespace-nowrap">{props.key}</td> */}
+                {/* border-solid border-black-200 h-10 flex overflow-x-auto w-70 whitespace-nowrap */}
+                <td className="w-1/5">{props.title}</td>
+                <td className="w-1/2">{props.description}</td>
+                <td className="w-1/10">{time}</td>
+                <td> 
+                <Status
+                id={props.key} 
                 status={props.status} /></td>   
             </tr>
             </tbody>
       </table>
 
-    </Fragment>
+    </>
   );
 }
 export default Task;
