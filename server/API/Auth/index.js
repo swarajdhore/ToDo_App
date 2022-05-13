@@ -19,21 +19,20 @@ Params     None
 Access     Public
 Method     POST
 */
-Router.post("/signup", async(req,res) =>{
+
+
+Router.post("/signup",async (req,res) =>{
     try{
         await ValidateSignup(req.body.credentials);
         await UserModel.findByEmailAndPhone(req.body.credentials);
-        
         // save to database
         const newUser = await UserModel.create(req.body.credentials);
-
-        const token = newUser.generateJwtToken()
-        
-        return res.status(200).json({token, status:"success"});
-
+        console.log(newUser);
+        const token = newUser.generateJwtToken();
+        const id = newUser._id;
+        return res.status(200).json({token,id, status:"success"});
      } catch(error) {
         return res.status(500).json({error: error.message});
-         
     }
 });
 
@@ -46,10 +45,13 @@ Method     POST
 */
 Router.post('/login', async(req,res) =>{
     try{
-        await ValidateLogin(req.body.credentials);
+        
+        const validation = await ValidateLogin(req.body.credentials);
+        
         const user = await UserModel.findByEmailAndPassword(req.body.credentials);
         const token = user.generateJwtToken();
-        return res.status(200).json({token, status:"success"});
+        const id = user._id;
+        return res.status(200).json({token,id, status:"success"});
 
     } catch(error){
         return res.status(500).json({error:error.message});

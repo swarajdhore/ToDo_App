@@ -10,6 +10,7 @@ import routerConfig from './config/route.config';
 //Routes
 import Auth from './API/Auth/index'
 import Task from './API/Task/index'
+import User from './API/User/index'
 
 //Database Connection
 import ConnectDB from './database/connection'
@@ -27,19 +28,19 @@ TodoApp.use(helmet());
 TodoApp.use(passport.initialize());
 //TodoApp.use(passport.session());
 
-
-
-
-
 TodoApp.get("/", (request,response)=>{
     response.json({message:"Request Served !!"});
 });
 
 TodoApp.use("/auth", Auth);
 TodoApp.use("/task", Task);
+TodoApp.use("/user", User);
 // TodoApp.get("/home",(req,res)=>{
 //     res.json({task:database.task})
 // });
+
+
+
 
 
 TodoApp.listen(4000,()=> ConnectDB()
