@@ -20,7 +20,7 @@ export default function LoginPage(props) {
     const identifier = setTimeout(() => {
       // now we would only do this after 500 milliseconds
       setFormIsValid(
-        userData.email("@claimgenius.com") && userData.password.trim().length > 6
+        (userData.email.includes("@claimgenius.com") || userData.email.includes("@gmail.com")) && userData.password.trim().length >= 6
       );
     }, 500);
 
@@ -32,11 +32,11 @@ export default function LoginPage(props) {
   }, [userData.email, userData.password]);
   
   const validateEmailHandler = () => {
-    setEmailIsValid(userData.email.includes("@claimgenius.com"));
+    setEmailIsValid(userData.email.includes("@claimgenius.com") || userData.email.includes("@gmail.com"));
   };
 
   const validatePasswordHandler = () => {
-    setPasswordIsValid(userData.password.trim().length > 6);
+    setPasswordIsValid(userData.password.trim().length >= 6);
   };
 
   const handleChange = (event) => {
@@ -61,7 +61,7 @@ export default function LoginPage(props) {
     props.onLoginPage(userData.email, userData.password);
   };
 
-  const errorHandler = () => {
+  const emailerrorHandler = () => {
     if(userData.email === ""){
       return "";
     }
@@ -71,6 +71,20 @@ export default function LoginPage(props) {
       }
       else{
         return "Please enter a valid email";
+      }
+    }
+  }
+
+  const passworderrorHandler = () => {
+    if(userData.password === ""){
+      return "";
+    }
+    else{
+      if (userData.password.length>=6) {
+        return " ";
+      }
+      else{
+        return "Length must be greater than or equal to 6";
       }
     }
   }
@@ -111,17 +125,17 @@ export default function LoginPage(props) {
           </div>
           <div className="flex items-center mt-6">
             <div onClick={submit} className="justify-start">
-              <div
+              <button
                 onload={getTask()}
                 className={`justify-start bg-green-400 py-2 px-4 text-sm text-black  font-bold rounded border border-green focus:outline-none focus:border-green-dark`}
                 disabled={!formIsValid}
               >
                 Login
-              </div>
+              </button>
             </div>
             <div id="emailerror" className='text-red-600'>
-            {errorHandler()}
-            
+            {emailerrorHandler()}
+            {passworderrorHandler()}
             {/* {!userData.email === " " ? "" : "Please enter an email"}
             
           

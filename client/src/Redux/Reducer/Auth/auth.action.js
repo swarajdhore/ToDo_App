@@ -31,8 +31,8 @@ export const signIn = (userData) => async (dispatch) => {
     window.location.href = "http://localhost:3000/";
     return dispatch({ type: SIGN_IN, payload: User.data });
   } catch (error) {
-    console.log(error);
-    dispatch({ type: "ERROR", payload: error });
+    
+    const redux_login_error = await dispatch({ type: "ERROR", payload: error });
   }
 };
 

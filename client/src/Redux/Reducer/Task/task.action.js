@@ -1,9 +1,10 @@
 import axios from "axios";
 import Task from "../../../components/Task/Task";
+import Status from "../../../components/Task/Status";
 // import {useEffect} from "react";
 
 // Redux Types
-import { GET_TASK,ADD_TASK } from "./task.type";
+import { GET_TASK,ADD_TASK,DELETE_TASK } from "./task.type";
 
 export var Tasklist;
 export const getTask = () => async (dispatch) => {
@@ -85,5 +86,50 @@ export const addTask = (taskData) => async (dispatch) => {
     window.location.href = "http://localhost:3000/todolist";
     
   }
+};
+
+export const deleteTask = (taskid) => async (dispatch) => {
+  const id_value = localStorage.getItem("todoAppUserID");
+  const id = JSON.parse(id_value);
+  console.log("Success  1");
+  const token_value = localStorage.getItem("todoAppUser");
+  console.log("Success  2");
+  const token = JSON.parse(token_value);
+  console.log("Success  3");
+  console.log(id)
+  console.log(token);
+  console.log("Success  4");
+  //console.log(taskData)
+  
+  // if(localStorage.getItem("tasks"))
+  // {
+  //   // window.location.reload();
+  // const tasks = localStorage.getItem("tasks");    
+  // const savedTasks = JSON.parse(tasks);
+  // const taskList = savedTasks.tasks;
+  // console.log(taskList);
+  // }
+try {
+  console.log("Success  5");
+    console.log("hello there")
+  const Task = await axios({
+    method: "DELETE",
+    url: `http://localhost:4000/task/delete/${taskid}`,
+    headers: { Authorization: `Bearer ${token}` },
+    data:{user:id},
+  });
+  console.log("Success  6");
+  
+  return dispatch({ type: DELETE_TASK,  payload: Task.data });
+} catch (error) {
+    console.log(error)
+  return dispatch({ type: "ERROR", payload: error  });
+}
+finally{
+  
+  const myPromise = new Promise(getTask());
+  const x = await myPromise;
+  window.location.href = "http://localhost:3000/todolist";
+}
 };
 

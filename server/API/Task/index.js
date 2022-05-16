@@ -1,7 +1,8 @@
 import express from "express";
 import passport from "passport";
-
+import mongoose, { ObjectID } from "mongoose";
 import {TaskModel} from '../../database/allModels';
+var ObjectId = require('mongodb').ObjectID;
 
 const Router = express.Router();
 
@@ -63,6 +64,48 @@ Router.post('/new/:_id',passport.authenticate('jwt', {session:false}) ,async (re
     }
 })
 
+
+Router.delete('/delete/:_id',passport.authenticate('jwt', {session:false}) ,async (req,res) => {
+    try{
+        const _id = req.params._id;
+        
+        var y = _id.toString(16)
+        console.log(y.length)
+        const id = JSON.stringify(_id)
+        const x = req.body;
+        console.log(x);
+        const userid = x.user;
+        // var item = db.collection.findOne({'condition':'some condition'})
+         //const x = await TaskModel.collection.findOneAndDelete.tasks[_id];
+        // x.collection.remove({_id: _id});
+        // const result = await client.db("ToDo_App").collection("tasks")
+        //     .f({ _id: _id });
+        //const x = await TaskModel.deleteOne({_id: _id});
+        // database.collection("tasks").deleteOne({_id: _id}, (err) => {
+        //     if (err) {
+        //        console.log(err);                
+        //     }
+        //     else{
+        //         res.send("Deleted");
+        //     }
+        // })
+        // TaskModel.findby(_id, function(err){
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else{
+        //         console.log("Deleted");
+        //     }
+        // })
+        console.log(x.user)
+        const result = await TaskModel.findByIdAndDelete({tasks:{_id:id}})
+        console.log(result)
+        return res.send(result);
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({error: error.message});
+    }
+})
 
 
 

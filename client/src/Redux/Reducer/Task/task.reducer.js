@@ -1,4 +1,4 @@
-import { GET_TASK, ADD_TASK } from "./task.type";
+import { GET_TASK, ADD_TASK, DELETE_TASK } from "./task.type";
 const initialState = {};
 
 const taskReducer = (state = initialState, action) => {
@@ -8,6 +8,10 @@ const taskReducer = (state = initialState, action) => {
         ...state,
       };
     case ADD_TASK:
+      return {
+        ...state,
+      }; 
+    case DELETE_TASK:
       return {
         ...state,
       };  

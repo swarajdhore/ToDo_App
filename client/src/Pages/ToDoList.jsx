@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import Task from "../components/Task/Task"
-import React from 'react';
-import { getTask } from "../Redux/Reducer/Task/task.action";
-import Background_Image from "../components/Background_Image/Background_Image";
+import {useState} from 'react';
+import { getTask, Tasklist } from "../Redux/Reducer/Task/task.action";
+import Pagination from "@material-ui/lab/Pagination";
+import usePagination from "../components/Pagination/pagination";
+//import Background_Image from "../components/Background_Image/Background_Image";
 import "../components/Task/Task.css";
-
+import FilterUI from "../components/UI/FilterUI";
 // import { useDispatch } from "react-redux";
 // import {getTask} from "../Redux/Reducer/Task/task.action";
 // import {Tasklist} from "../Redux/Reducer/Task/task.action";
@@ -20,6 +22,28 @@ export default function ToDoList() {
   //   return savedTasks
   // });
   //console.log(localStorage.getItem("tasks"));
+  const [deleteT, setDeleteT] = useState(false);
+
+  const deleteTHandler = () => {
+    setDeleteT(deleteT = true);
+  }
+
+  const tasks = localStorage.getItem("tasks");    
+    const savedTasks = JSON.parse(tasks);
+    const taskList = savedTasks.tasks;
+    console.log(taskList);
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 10;
+
+  const count = Math.ceil(taskList.length / PER_PAGE);
+  const _DATA = usePagination(taskList, PER_PAGE);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+
+  }
+
   
   if(localStorage.getItem("tasks"))
   {
@@ -27,19 +51,22 @@ export default function ToDoList() {
     // const y = await promise2;
   
     // window.location.reload();
-  const tasks = localStorage.getItem("tasks");    
-  const savedTasks = JSON.parse(tasks);
-  const taskList = savedTasks.tasks;
-  console.log(taskList);
-  window.onpaint = getTask();
-  // const keys = Object.keys(taskList[(taskList.length)-1]);
-  // const idvalue = taskList[(taskList.length)-1][keys[4]];
+    const tasks = localStorage.getItem("tasks");    
+    const savedTasks = JSON.parse(tasks);
+    const taskList = savedTasks.tasks;
+    console.log(taskList);
+    window.onpaint = getTask();
+    var x;
+  const keys = Object.keys(taskList[(taskList.length)-1]);
+    const idvalue = taskList[(taskList.length)-1][keys[4]];
   
-  
-  return (
-    <div className="h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500" >    
+
     
-    <div  onload={getTask()} className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+  return (
+    // bg-gradient-to-r from-violet-500 to-fuchsia-500
+    <div className="" >    
+    {/* */}
+    <div  onload={getTask()} className="flex bg-gradient-to-r from-violet-500 to-fuchsia-500 ">
     <div className="w-full my-40 shadow-default py-10 px-8">
      <div className="text-center mb-4">
         <h1 className="font-semibold text-xl">ToDoList</h1>
@@ -50,7 +77,13 @@ export default function ToDoList() {
         onClick={getTask()}>
         Update Page
         </div>
+        <div className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-2 my-2 rounded border focus:outline-none"
+        onClick={() => setDeleteT((prevDelete) => !prevDelete)}>
+        Delete
+      
         </div>
+        </div>
+        <FilterUI/>
         {/* <h2>{taskList[0].taskname}</h2>
         <div>{taskList[0].taskdesc}</div>
         <div>{taskList[0].time}</div> */}
@@ -60,34 +93,56 @@ export default function ToDoList() {
            <Task name="assignment"
             status="incomplete"
           /> */}
+          <div className="m-10">
+          <Pagination
+                count={count}
+                size="large"
+                page={page}
+                variant="outlined"
+                shape="rounded"
+                onChange={handleChange}
+              /> 
+              </div> 
           <table>
           <thead>
           {/* px-1 py-3 text-mid text-lg font-medium text-gray-500 flex */}
               <tr>
               {/* border-solid  flex overflow-x-auto w-50 */}
+                
                 <th className="w-1/5">Name</th>
-                <th className="w-1/2">Description</th>
-                <th >Date</th>
+                <th className="w-1/3">Description</th>
+                <th className="w-1/5">Date</th>
                 <th className="w-1/6">Status</th>
+                <th className={`${deleteT === true ? "visible w-1/8" : "invisible w-1/8" }`}>Delete</th>
                 {/* <th>{taskList._id}</th> */}
                 {/* <th>{idvalue}</th> */}
               </tr>
               </thead>
               </table>
-          {taskList.slice(0)
-           .reverse().map((taskList) => (
-          <Task 
-            key={taskList._id} // to take id from DB
-            title={taskList.taskname}
-            description={taskList.taskdesc}
-            time={taskList.time}
-            status={taskList.status} 
-          />
-          ))}
+              
+              {_DATA.currentData().slice(0)
+              .reverse().map((taskList) => (
+              console.log(taskList),
+              <Task 
+                id={taskList._id} // to take id from DB
+                title={taskList.taskname}
+                description={taskList.taskdesc}
+                time={taskList.time}
+                status={taskList.status} 
+                deleteT={deleteT}
+              />
+              ))}
+              <div className="m-10">
+              <Pagination
+                      count={count}
+                      size="large"
+                      page={page}
+                      variant="outlined"
+                      shape="rounded"
+                      onChange={handleChange}
+                    />
+          </div>
           
-            
-          
-          {/* <Task /> */}
       
     </div>
   </div>
@@ -97,16 +152,17 @@ export default function ToDoList() {
   }
   else {
   return (
-    <div className=" h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    // bg-gradient-to-r from-violet-500 to-fuchsia-500
+    <div className=" h-14">
       <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
       <div className="w-2/4 my-32 ml-60 shadow-default py-10 px-8">
         <div className="text-center">
-          <h1 className="font-semibold text-xl">ToDoList</h1>
-        <button className=" ">
+          {/* <h1 className="font-semibold text-xl">ToDoList</h1> */}
+        <button className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-4 my-2 rounded border focus:outline-none ">
           <Link to="/addtask">Add Task</Link>
         </button>
-        <h1 className="font-semibold text-lg"> No Task Found </h1>
-        <div className="" onClick={getTask()}>Click Here</div>
+        <h1 className="my-6 font-semibold text-4xl"> No Task Found </h1>
+        {/* <div className="" onClick={getTask()}>Click Here</div> */}
         </div>
         
           {/* <div>

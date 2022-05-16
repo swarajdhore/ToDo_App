@@ -101,22 +101,21 @@ export default function Status (props){
     dispatch(addTask(statusChangeData));
   };
   
-  const todo = () => {
-   handleChange();
-    alert(this.id);
-  }
+  // const todo = () => {
+  //  handleChange();
+  //   alert(this.id);
+  // }
 
   // async function submit() {
 
   // }
-    var x;
     if (props.status === "Pending"){
         return (<div  >
         <div value={statusChangeData.status}  onClick={submit}>
         <select  type="datalist" name="status"  id={idvalue}  onChange={handleChange}  >
               <option value="Pending" selected>{props.status}</option>
               {/* <option value="Pending">Pending</option> */}
-              <option value="Completed">{props.id}</option>
+              
               <option value="Completed">Completed</option>
               <option value="On-Hold">On-Hold</option>
             </select>
@@ -127,7 +126,7 @@ export default function Status (props){
         return (<div >
         <div value={statusChangeData.status}  onClick={submit}  >
             <select type="datalist" name="status" id={idvalue}  onChange={handleChange}>
-              <option value="Completed" >{props.id}</option>
+              
               <option value="Completed" selected>{props.status}</option>
               <option value="Pending">Pending</option>
               {/* <option value="Completed">Completed</option> */}
@@ -141,7 +140,7 @@ export default function Status (props){
         <div value={statusChangeData.status}  onClick={submit} >
             <select  type="datalist" name="status"  id={idvalue}  onChange={handleChange} > 
               <option value="On-Hold" selected>{props.status}</option>
-              <option value="Completed" >{props.id}</option>
+              
               <option value="Pending">Pending</option>
               <option value="Completed">Completed</option>
               {/* <option value="On-Hold">On-Hold</option> */}
