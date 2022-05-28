@@ -1,8 +1,21 @@
 import express from "express";
 import passport from "passport";
-import mongoose, { ObjectID } from "mongoose";
+import mongoose from "mongoose";
+
 import {TaskModel} from '../../database/allModels';
-var ObjectId = require('mongodb').ObjectID;
+//var ObjectId = require('mongodb').ObjectID;
+var Db = require('mongodb').Db,
+    MongoClient = require('mongodb').MongoClient,
+    Server = require('mongodb').Server,
+    ReplSetServers = require('mongodb').ReplSetServers,
+    ObjectId = require('mongodb').ObjectId,
+    Binary = require('mongodb').Binary,
+    GridStore = require('mongodb').GridStore,
+    Grid = require('mongodb').Grid,
+    Code = require('mongodb').Code,
+    //BSON = require('mongodb').pure().BSON,
+    assert = require('assert');
+
 
 const Router = express.Router();
 
@@ -69,42 +82,23 @@ Router.delete('/delete/:_id',passport.authenticate('jwt', {session:false}) ,asyn
     try{
         const _id = req.params._id;
         
-        var y = _id.toString(16)
-        console.log(y.length)
+        //var y = _id.toString(16)
+        console.log(_id)
+        console.log(_id.length)
         const id = JSON.stringify(_id)
         const x = req.body;
         console.log(x);
         const userid = x.user;
-        // var item = db.collection.findOne({'condition':'some condition'})
-         //const x = await TaskModel.collection.findOneAndDelete.tasks[_id];
-        // x.collection.remove({_id: _id});
-        // const result = await client.db("ToDo_App").collection("tasks")
-        //     .f({ _id: _id });
-        //const x = await TaskModel.deleteOne({_id: _id});
-        // database.collection("tasks").deleteOne({_id: _id}, (err) => {
-        //     if (err) {
-        //        console.log(err);                
-        //     }
-        //     else{
-        //         res.send("Deleted");
-        //     }
-        // })
-        // TaskModel.findby(_id, function(err){
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        //     else{
-        //         console.log("Deleted");
-        //     }
-        // })
         console.log(x.user)
-        const result = await TaskModel.findByIdAndDelete({tasks:{_id:id}})
+
+        
+        const result = await TaskModel.findByIdAndDelete({_id:x.user})
         console.log(result)
         return res.send(result);
-    }catch(error){
+        } catch(error){
         console.log(error)
         return res.status(500).json({error: error.message});
-    }
+       }
 })
 
 

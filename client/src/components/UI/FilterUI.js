@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function FilterUI({ sorts, sorting, cat, filteringName }) {
+export default function FilterUI({ sorts, sorting }) {
   return (
     <div>
       {/* filtering by name */}
