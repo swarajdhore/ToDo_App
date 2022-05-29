@@ -1,5 +1,5 @@
 import { Tasklist } from "./task.action";
-import { GET_TASK, ADD_TASK, DELETE_TASK } from "./task.type";
+import { GET_TASK, ADD_TASK, DELETE_TASK, UPDATE_TASK } from "./task.type";
 const initialState = {};
 
 const taskReducer = (state = initialState, action) => {
@@ -11,7 +11,11 @@ const taskReducer = (state = initialState, action) => {
     case ADD_TASK:
       return {
         ...state,
-      }; 
+      };
+      case UPDATE_TASK:
+      return {
+        ...state,
+      };  
     case DELETE_TASK:
       return {
         ...state,

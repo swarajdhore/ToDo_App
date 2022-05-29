@@ -61,7 +61,7 @@ Router.post('/new/:_id',passport.authenticate('jwt', {session:false}) ,async (re
             new: true    //it means whatever object we return should be returned after updation
         }
         );
-
+        console.log(addNewTask);
         if (!addNewTask) {
             const details = await TaskModel.create({
               user: _id,
@@ -78,27 +78,81 @@ Router.post('/new/:_id',passport.authenticate('jwt', {session:false}) ,async (re
 })
 
 
+/*
+Route      /update/:_id
+Desc       get all today's task
+Params     None
+Access     Public
+Method     POST
+*/
+Router.post('/update/:_id',passport.authenticate('jwt', {session:false}) ,async (req,res) => {
+    try{
+        const{_id} = req.params;
+        const{tasks}= req.body;
+        console.log(tasks);
+        const updateTask = await TaskModel.findOneAndUpdate({
+            user:_id
+        },{
+            $push: {tasks},     // or can be written as $push: {tasks: tasks} as both key and value name are same hence written only single word
+        },
+        {
+            new: true    //it means whatever object we return should be returned after updation
+        }
+        );
+        console.log(updateTask);
+        
+
+        return res.json({task:updateTask});
+    }catch(error){
+        return res.status(500).json({error: error.message});
+    }
+})
+
+
+
+
 Router.delete('/delete/:_id',passport.authenticate('jwt', {session:false}) ,async (req,res) => {
     try{
-        const _id = req.params._id;
+        const {_id} = req.params;
         
-        //var y = _id.toString(16)
+        var y = _id.toString(16)
         console.log(_id)
         console.log(_id.length)
         const id = JSON.stringify(_id)
-        const x = req.body;
-        console.log(x);
-        const userid = x.user;
-        console.log(x.user)
-
-        
-        const result = await TaskModel.findByIdAndDelete({_id:x.user})
-        console.log(result)
-        return res.send(result);
+        const {tasks} = req.body;
+        console.log(tasks)
+        //console.log(x);
+        //const userid = x.user;
+        //console.log(x.user)
+        //console.log(x.tasks)
+        //var taskList = x.tasks
+        //console.log(taskList)
+        // const keys = Object.keys(taskList[(taskList.length)-1]);
+        // const idvalue = taskList[(taskList.length)-1][keys[4]];
+        // console.log(idvalue)
+        //const result = TaskModel.findByIdAndDelete({tasks:{_id:id}})
+        //console.log("Heelllll"+result)
+        console.log({tasks:{_id:_id}})
+        // const deleteTask = await TaskModel.findOneAndUpdate({
+        //     tasks:{_id:_id}
+            
+        // },{
+        //     $pull: {tasks},     // or can be written as $push: {tasks: tasks} as both key and value name are same hence written only single word
+        // },
+        // {
+        //     new: true    //it means whatever object we return should be returned after updation
+        // }
+        // );
+        //const deleteTask = await TaskModel.deleteOne({'tasks._id':_id},{new:true})
+        const deleteTask = await TaskModel.updateOne({user:tasks},{$pull:{tasks:{_id:_id}}})
+        console.log(deleteTask);
+        const TasksUpdated = await TaskModel.find({},{new:true})
+        console.log(TasksUpdated);
+        return res.send(TasksUpdated);
         } catch(error){
         console.log(error)
         return res.status(500).json({error: error.message});
-       }
+        }
 })
 
 

@@ -26,6 +26,7 @@ export const signIn = (userData) => async (dispatch) => {
       "todoAppUserID",
       JSON.stringify( User.data.id )
     );
+    
     isLoggedIn = 1; 
     getTask();  
     window.location.href = "http://localhost:3000/";
@@ -53,6 +54,7 @@ export const signUp = (userData) => async (dispatch) => {
       "todoAppUserID",
       JSON.stringify(User.data.id )
     );
+    
     const saved = localStorage.getItem("todoAppUserID");
     const initialValue = JSON.stringify(saved);
     console.log(initialValue);

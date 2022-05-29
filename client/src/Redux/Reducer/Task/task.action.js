@@ -4,7 +4,7 @@ import Status from "../../../components/Task/Status";
 // import {useEffect} from "react";
 
 // Redux Types
-import { GET_TASK,ADD_TASK,DELETE_TASK } from "./task.type";
+import { GET_TASK,ADD_TASK,DELETE_TASK,UPDATE_TASK } from "./task.type";
 
 
 
@@ -90,6 +90,48 @@ export const addTask = (taskData) => async (dispatch) => {
   }
 };
 
+
+export const updateTask = (taskData) => async (dispatch) => {
+  const id_value = localStorage.getItem("todoAppUserID");
+  const id = JSON.parse(id_value);
+  const token_value = localStorage.getItem("todoAppUser");
+  const token = JSON.parse(token_value);
+  console.log(id)
+  console.log(token)
+  console.log(taskData)
+  
+  if(localStorage.getItem("tasks"))
+  {
+    // window.location.reload();
+  const tasks = localStorage.getItem("tasks");    
+  const savedTasks = JSON.parse(tasks);
+  const taskList = savedTasks.tasks;
+  console.log(taskList);
+  }
+try {
+    console.log("hello there")
+  const Task = await axios({
+    method: "POST",
+    url: `http://localhost:4000/task/update/${id}`,
+    headers: { Authorization: `Bearer ${token}` },
+    data: { tasks: taskData },
+  });
+  
+  return dispatch({ type: UPDATE_TASK, payload: Task.data });
+} catch (error) {
+    console.log(error)
+  return dispatch({ type: "ERROR", payload: error });
+}
+finally{
+  
+  const myPromise = new Promise(getTask());
+  const x = await myPromise;
+ 
+  window.location.href = "http://localhost:3000/todolist";
+  
+}
+};
+
 export const deleteTask = (taskid) => async (dispatch) => {
   const id_value = localStorage.getItem("todoAppUserID");
   const id = JSON.parse(id_value);
@@ -118,7 +160,7 @@ try {
     method: "DELETE",
     url: `http://localhost:4000/task/delete/${taskid}`,
     headers: { Authorization: `Bearer ${token}` },
-    data:{user:id},
+    data:{tasks:id},
   });
   console.log("Success  6");
   

@@ -10,15 +10,14 @@ export default function ToDoList() {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
-  today = mm + '-' + dd + '-' + yyyy;
+  today = mm + '-' + dd;
   console.log(today);
-
   const [deleteT, setDeleteT] = useState(false);
   const [search, setSearch] = useState("");
   const [date, setDate] = useState(today);
   const [filter, setFilter] = useState(true);
-
+  let [page, setPage] = useState(1);
+  
   const handleCLickForFilter = () => {
     setFilter(false);
   }
@@ -35,33 +34,83 @@ export default function ToDoList() {
     setSearch(() => ([event.target.id]= event.target.value));
   }
 
+  const deleteTHandler = () => {
+    setDeleteT(deleteT = true);
+  }
+  
+
+  // const tasks = localStorage.getItem("tasks");    
+  //   const savedTasks = JSON.parse(tasks);
+  //   const taskList = savedTasks.tasks;
+  //   console.log(taskList);
+  
+  // const PER_PAGE = 10;
+
+  // const count = Math.ceil(taskList.length / PER_PAGE);
+  
+  // const _DATA = usePagination(taskList.reverse(), PER_PAGE);
+
+  // const handleChange = (e, p) => {
+  //   setPage(p);
+  //   _DATA.jump(p);
+  // }
+
+  //console.log(localStorage.getItem("tasks"))
+  
+  // if(!localStorage.getItem("tasks")){
+  //   return (
+  //     <div className=" h-14">
+  //       <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+  //       <div className="w-2/4 my-32 ml-60 shadow-default py-10 px-8">
+  //         <div className="text-center">
+  //         <button className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-4 my-2 rounded border focus:outline-none ">
+  //           <Link to="/addtask">Add Task</Link>
+  //         </button>
+  //         <h1 className="my-6 font-semibold text-4xl"> No Task Found </h1>
+  //         </div>
+  //       </div>
+  //      </div>
+  //     </div>
+  //   );
+  // }
   const tasks = localStorage.getItem("tasks");    
     const savedTasks = JSON.parse(tasks);
     const taskList = savedTasks.tasks;
-    console.log(taskList);
-  let [page, setPage] = useState(1);
-  const PER_PAGE = 5;
+    
+    
+  
+  const PER_PAGE = 10;
 
   const count = Math.ceil(taskList.length / PER_PAGE);
+  
   const _DATA = usePagination(taskList.reverse(), PER_PAGE);
 
-  const handleChange = (p) => {
-    setPage(p);
-    _DATA.jump(p);
+  const handleChange = (e, p) => {
+     setPage(p);
+     _DATA.jump(p);
   }
+    console.log(taskList);
 
-  // var result;
+
   if(localStorage.getItem("tasks"))
   {
+    // const promise2 =  new Promise(Task);
+    // const y = await promise2;
+  
+    // window.location.reload();
+    
     const tasks = localStorage.getItem("tasks");    
     const savedTasks = JSON.parse(tasks);
     const taskList = savedTasks.tasks;
+    
+    
+  
+ 
     console.log(taskList);
     window.onpaint = getTask();
-    // var x;
-    // const keys = Object.keys(taskList[(taskList.length)-1]);
-    // const idvalue = taskList[(taskList.length)-1][keys[4]];
-    if (filter === false) {
+   
+
+  if (filter === false) {
       return (
     // bg-gradient-to-r from-violet-500 to-fuchsia-500
     <div className="" >    
@@ -121,6 +170,7 @@ export default function ToDoList() {
           </thead>
         </table>
           {
+            search === "" ?
             _DATA.currentData().filter((taskList) => {
               if (search === "") {
                 return taskList;
@@ -138,7 +188,7 @@ export default function ToDoList() {
                  return(
                  <div>
                   <Task 
-                      key={taskList._id} // to take id from DB
+                      id={taskList._id} // to take id from DB
                       title={taskList.taskname}
                       description={taskList.taskdesc}
                       time={taskList.time}
@@ -147,8 +197,35 @@ export default function ToDoList() {
                   />
                 </div>
                 )
-              })
-            } 
+              }) : taskList.filter((taskList) => {
+              if (search === "") {
+                return taskList;
+              } else if (taskList.taskname.toLowerCase().includes(search.toLowerCase())) {
+                return taskList;
+              }
+              else if (taskList.status.toLowerCase().includes(search.toLowerCase())) {
+                return taskList;
+              }
+              else if (taskList.time.includes(search)) {
+                return taskList;
+              }
+              }).slice(0)
+               .map((taskList) => {
+                 return(
+                 <div>
+                  <Task 
+                      id={taskList._id} // to take id from DB
+                      title={taskList.taskname}
+                      description={taskList.taskdesc}
+                      time={taskList.time}
+                      status={taskList.status}
+                      deleteT={deleteT}
+                  />
+                </div>
+                )
+              }) 
+            }
+             
       <div className="m-10">
         <Pagination
           count={count}
@@ -172,10 +249,10 @@ export default function ToDoList() {
     <div className="w-full my-40 shadow-default py-10 px-8">
      <div className="text-center mb-4">
      <h1 className="my-4 font-semibold text-4xl">ToDoList</h1>
-     <div className="content-center">
+     <div className="content-center my-16">
      <div className="flex space-x-5">
       <div className="bg-blue-dark hover:bg-blue-faint px-8 py-2 my-2 rounded border focus:outline-none ">
-          <Link to="/addtask">Add Task 11111111</Link>
+          <Link to="/addtask">Add Task</Link>
       </div>
       {/* <div className="bg-blue-dark hover:bg-blue-faint px-8  py-2 my-2  rounded border focus:outline-none"
         onClick={getTask()}>
@@ -199,7 +276,7 @@ export default function ToDoList() {
       </div>
       </div>
       </div>
-      <div className="m-10">
+      {/* <div className="m-10">
         <Pagination
           count={count}
           size="large"
@@ -208,7 +285,7 @@ export default function ToDoList() {
           shape="rounded"
           onChange={handleChange}
         /> 
-      </div> 
+      </div>  */}
         <table>
           <thead>
           {/* px-1 py-3 text-mid text-lg font-medium text-gray-500 flex */}
@@ -225,18 +302,22 @@ export default function ToDoList() {
         <div>{taskList.time}</div>
       
           {
-            _DATA.currentData().slice(0).filter((taskList) => {
-              var tasktime = taskList.time;
-              var tasktime1 = tasktime;
-            if (tasktime1 === today) {
-              return taskList;
-            }
-           })
+            taskList.slice(0).filter((taskList) => {
+              var tasktime = taskList.time.slice(5, 10);
+              const d = new Date(tasktime);
+              {/* var tasktime1 = d.toLocaleDateString().replace(/\//g, "-");
+              tasktime1 = tasktime1.toLocaleString();
+              var tasktime1 = tasktime.toLocaleDateString().replace(/\//g, "-"); */}
+              console.log(tasktime);
+              if (tasktime == today) {
+                return taskList;
+              }
+            })
            .map((taskList) => {
              return(
                <div>
                  <Task 
-                   key={taskList._id} // to take id from DB
+                   id={taskList._id} // to take id from DB
                    title={taskList.taskname}
                    description={taskList.taskdesc}
                    time={taskList.time}
@@ -249,7 +330,7 @@ export default function ToDoList() {
           
           }
 
-      <div className="m-10">
+      {/* <div className="m-10">
         <Pagination
           count={count}
           size="large"
@@ -258,16 +339,15 @@ export default function ToDoList() {
           shape="rounded"
           onChange={handleChange}
         />
-      </div>
+      </div> */}
     </div>
   </div>
 </div>
   );
   }
-}
- else {
+  }
+  else {
   return (
-    // bg-gradient-to-r from-violet-500 to-fuchsia-500
     <div className=" h-14">
       <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
       <div className="w-2/4 my-32 ml-60 shadow-default py-10 px-8">
@@ -276,10 +356,9 @@ export default function ToDoList() {
           <Link to="/addtask">Add Task</Link>
         </button>
         <h1 className="my-6 font-semibold text-4xl"> No Task Found </h1>
-        {/* <div className="" onClick={getTask()}>Click Here</div> */}
         </div>
       </div>
      </div>
     </div>
-  );}     
-}
+  );}
+  }
