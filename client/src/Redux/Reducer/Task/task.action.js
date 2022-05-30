@@ -105,16 +105,16 @@ export const updateTask = (taskData) => async (dispatch) => {
     // window.location.reload();
   const tasks = localStorage.getItem("tasks");    
   const savedTasks = JSON.parse(tasks);
-  const taskList = savedTasks.tasks;
+  var taskList = savedTasks.tasks;
   console.log(taskList);
   }
 try {
     console.log("hello there")
   const Task = await axios({
     method: "POST",
-    url: `http://localhost:4000/task/update/${id}`,
+    url: `http://localhost:4000/task/update/${taskData.id}`,
     headers: { Authorization: `Bearer ${token}` },
-    data: { tasks: taskData },
+    data: { tasks: taskData, userid:id },
   });
   
   return dispatch({ type: UPDATE_TASK, payload: Task.data });

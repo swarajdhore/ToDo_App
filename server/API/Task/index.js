@@ -88,10 +88,53 @@ Method     POST
 Router.post('/update/:_id',passport.authenticate('jwt', {session:false}) ,async (req,res) => {
     try{
         const{_id} = req.params;
-        const{tasks}= req.body;
+        const{tasks, userid}= req.body;
+        // console.log("line91");
+        // console.log(tasks);
+        // const updateTask = await TaskModel.findOneAndUpdate({
+        //     user:_id
+        // },{
+        //     $push: {tasks},     // or can be written as $push: {tasks: tasks} as both key and value name are same hence written only single word
+        // },
+        // {
+        //     new: true    //it means whatever object we return should be returned after updation
+        // }
+        // );
+        // console.log(updateTask);
+        console.log(userid);
+        console.log(_id);
         console.log(tasks);
+        //console.log(tasks.status)
+        //const updateTask = await TaskModel.updateOne({user:userid},{$pull:{tasks:{_id:_id}}})
+        //const updateTask = await TaskModel.updateOne({user:userid},{$set:{tasks:{status:`${tasks.status}`}}})
+        // const updateTask = await TaskModel.aggregate(
+        //     [
+        //         {$unwind:"$tasks"},
+        //         {$match:{"tasks.status": {$strcasecmp:["$tasks.status",tasks.status]}}},
+        //         {$replaceWith:}
+        //     ]
+        //     )
+
+        //console.log("Hello1")
+        //console.log(updateTask);
+        //console.log("Hello2")
+        //const TasksUpdated = await TaskModel.updateOne({user:userid},{$pull:{tasks:{_id:_id}}})
+        //console.log("Hello3")
+        //console.log(TasksUpdated);
+        //console.log("Hello4")
+        // const TasksUpdated1 = await TaskModel.findOneAndReplace({
+        //     tasks:_id
+        // },{
+        //     tasks,     // or can be written as $push: {tasks: tasks} as both key and value name are same hence written only single word
+        // },
+        // {
+        //     new: true    //it means whatever object we return should be returned after updation
+        // }
+        // );
+        const deleteTask = await TaskModel.updateOne({user:userid},{$pull:{tasks:{_id:_id}}})
+        console.log(deleteTask)
         const updateTask = await TaskModel.findOneAndUpdate({
-            user:_id
+            user:userid
         },{
             $push: {tasks},     // or can be written as $push: {tasks: tasks} as both key and value name are same hence written only single word
         },

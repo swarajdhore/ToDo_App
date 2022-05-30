@@ -12,84 +12,109 @@ export default function Status (props){
   const keys = Object.keys(taskList[(taskList.length)-1]);
   const idvalue = taskList[(taskList.length)-1][keys[4]];
   const dispatch = useDispatch();
-  // const [statusChangeData, setstatusChangeData] = useState({
-  //   status:`${props.status}`,
-  //   taskname:`${props.title}`, 
-  //   taskdesc:`${props.description}` ,
-  //   time:`${props.time}`,
-  //   id: `${props.id}`,
-  // });
- 
-  const various_tasks  = 
-  {  
-    status: `${props.status}`,
+  var changedStatus
+  const [statusChangeData, setstatusChangeData] = useState({
+    status:`${props.status}`,
     taskname:`${props.title}`, 
-    taskdesc: `${props.description}`, 
+    taskdesc:`${props.description}` ,
     time:`${props.time}`,
-    id: `${props.id}`
-};
+    id: `${props.id}`,
+  });
+ 
+//   const various_tasks  = 
+//   {  
+//     status: `${changedStatus}`,
+//     taskname:`${props.title}`, 
+//     taskdesc: `${props.description}`, 
+//     time:`${props.time}`,
+//     id: `${props.id}`
+// };
+
   
+// console.log(statusChangeData.status);
   
-  const handleChange = (event) => {
-    //setstatusChangeData((prev) => ({...prev, [event.target.id]: event.target.value }));
-    //event.preventDefault();
-    various_tasks.status = document.getElementById("statusid").value
-    submit();
-  }
-    function submit(e) {
-      
-    console.log("hello");
-    // setstatusChangeData({
-    //   status:`${document.getElementById("statusid").value}`,
-    //   taskname:`${props.title}`, 
-    //   taskdesc:`${props.description}` ,
-    //   time:`${props.time}`,
-    //   id: `${props.id}`,
-    // });
+//   //dispatch(updateTask(statusChangeData));
+//   console.log(statusChangeData.status);
+  // submit();
+ const handleChange = (event) => {
     
+    changedStatus = event.target.value;
+    setstatusChangeData({
+      status:`${event.target.value}`,
+      taskname:`${props.title}`, 
+      taskdesc:`${props.description}` ,
+      time:`${props.time}`,
+      id: `${props.id}`,
+    
+  })
+ 
+}
+console.log(statusChangeData.status)
+   
+function submit (event) { 
+     console.log("From submit");
+      console.log(statusChangeData.status);
+    // const otherfunction = await handleChange(event);
+    // console.log(statusChangeData.status) ;
+    // console.log("hello");
     //console.log(statusChangeData.status);
-    return dispatch(updateTask(various_tasks));
+    return  dispatch(updateTask(statusChangeData));
   };
+  
   
     if (props.status === "Pending"){
         return (
-        <div>
+          <>
+        <div onChange= {handleChange}>
           <div id="statusid">
-            <select  type="datalist" name="status" id={idvalue} onChange={handleChange}>
+            <select  type="datalist" name="status" id={idvalue} >
               <option value="Pending" selected>{props.status}</option>
               {/* <option value="Pending">Pending</option> */}
               <option value="Completed"  >Completed</option>
               <option value="On-Hold"  >On-Hold</option>
             </select>
           </div>
-        </div>);
+        </div>
+        <button onClick={submit}>Submit</button>
+        </>
+        );
     }
     else if(props.status === "Completed"){
         return (
-        <div >
+          <>
+        <div onChange={handleChange}>
           <div  id="statusid">
-            <select type="datalist" name="status" id={idvalue} onChange={handleChange} >
+            <select type="datalist" name="status" id={idvalue} >
               <option value="Completed" selected>{props.status}</option>
               <option value="Pending" >Pending</option>
               {/* <option value="Completed">Completed</option> */}
               <option value="On-Hold"   >On-Hold</option>
             </select>
           </div>
-        </div>); 
+        </div>
+        <button onClick={submit}>Submit</button> 
+        </>
+        ); 
     }
     else if(props.status === "On-Hold"){
         return (
-        <div>
+          <>
+        <div onChange={handleChange}>
           <div  id="statusid"  >
-            <select  type="datalist" name="status"  id={idvalue}  onChange={handleChange} > 
+            <select  type="datalist" name="status"  id={idvalue} >
               <option value="On-Hold" selected>{props.status}</option>
               <option value="Pending"  >Pending</option>
               <option value="Completed"  >Completed</option>
               {/* <option value="On-Hold">On-Hold</option> */}
             </select>
           </div>
-        </div>); 
+        </div>
+        <button onClick={submit}>Submit</button>
+        </>
+        ); 
     }
+
+    
   //   if (props.status === "Pending"){
   //     return (<div  id="condition1"  >
     
