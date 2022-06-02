@@ -48,7 +48,7 @@ export function PaginationCompenent() {
     const [page, setPage] = useState(1);
     
   
-  const PER_PAGE = 10;
+  const PER_PAGE = 5;
 
   const count = Math.ceil(taskList.length / PER_PAGE);
   
@@ -86,7 +86,7 @@ export function PaginationCompenent() {
      <div className="text-center mb-4">
      <h1 className="my-4 font-semibold text-4xl">All Tasks</h1>
      <div className="content-center">
-     <div className="flex space-x-5">
+     <div className="flex flex-wrap space-x-4">
       <div className="bg-blue-dark hover:bg-blue-faint px-8 py-2 my-2 rounded border focus:outline-none ">
           <Link to="/addtask">Add Task</Link>
       </div>
@@ -218,7 +218,7 @@ export function PaginationCompenent() {
      <div className="text-center mb-4">
      <h1 className="my-4 font-semibold text-4xl">Today's Tasks</h1>
      <div className="content-center my-16">
-     <div className="flex space-x-5">
+     <div className="flex flex-wrap space-x-4">
       <div className="bg-blue-dark hover:bg-blue-faint px-8 py-2 my-2 rounded border focus:outline-none ">
           <Link to="/addtask">Add Task</Link>
       </div>
@@ -280,7 +280,19 @@ export function PaginationCompenent() {
               if (tasktime == today) {
                 return taskList;
               }
-            })
+            }).filter((taskList) => {
+                if (search === "") {
+                  return taskList;
+                } else if (taskList.taskname.toLowerCase().includes(search.toLowerCase())) {
+                  return taskList;
+                }
+                else if (taskList.status.toLowerCase().includes(search.toLowerCase())) {
+                  return taskList;
+                }
+                else if (taskList.time.includes(search)) {
+                  return taskList;
+                }
+                })
            .map((taskList) => {
              return(
                <div>

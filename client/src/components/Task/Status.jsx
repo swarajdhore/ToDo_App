@@ -47,10 +47,16 @@ export default function Status (props){
       id: `${props.id}`,
     
   })
+  let element = document.getElementById(`${props.id}`);
+  element.removeAttribute("hidden");
+   
+  
  
 }
 console.log(statusChangeData.status)
-   
+ 
+
+// element.removeAttribute("hidden");
 function submit (event) { 
      console.log("From submit");
       console.log(statusChangeData.status);
@@ -65,9 +71,9 @@ function submit (event) {
     if (props.status === "Pending"){
         return (
           <>
-        <div onChange= {handleChange}>
-          <div id="statusid">
-            <select  type="datalist" name="status" id={idvalue} >
+        <div >
+          <div id="statusid" onChange= {handleChange}>
+            <select  type="datalist" name="status"  >
               <option value="Pending" selected>{props.status}</option>
               {/* <option value="Pending">Pending</option> */}
               <option value="Completed"  >Completed</option>
@@ -75,16 +81,16 @@ function submit (event) {
             </select>
           </div>
         </div>
-        <button onClick={submit}>Submit</button>
+        <button hidden="hidden" name="savebutton" id={props.id} className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-2 rounded border focus:outline-none " onClick={submit}>Save</button>
         </>
         );
     }
     else if(props.status === "Completed"){
         return (
           <>
-        <div onChange={handleChange}>
-          <div  id="statusid">
-            <select type="datalist" name="status" id={idvalue} >
+        <div >
+          <div  id="statusid" onChange={handleChange}>
+            <select type="datalist" name="status"  >
               <option value="Completed" selected>{props.status}</option>
               <option value="Pending" >Pending</option>
               {/* <option value="Completed">Completed</option> */}
@@ -92,16 +98,16 @@ function submit (event) {
             </select>
           </div>
         </div>
-        <button onClick={submit}>Submit</button> 
+        <button hidden="hidden" name="savebutton" id={props.id} className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-2 rounded border focus:outline-none " onClick={submit}>Save</button> 
         </>
         ); 
     }
     else if(props.status === "On-Hold"){
         return (
           <>
-        <div onChange={handleChange}>
-          <div  id="statusid"  >
-            <select  type="datalist" name="status"  id={idvalue} >
+        <div >
+          <div  id="statusid" onChange={handleChange} >
+            <select  type="datalist" name="status"   >
               <option value="On-Hold" selected>{props.status}</option>
               <option value="Pending"  >Pending</option>
               <option value="Completed"  >Completed</option>
@@ -109,7 +115,7 @@ function submit (event) {
             </select>
           </div>
         </div>
-        <button onClick={submit}>Submit</button>
+        <button hidden="hidden" name="savebutton" id={props.id} className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-2 rounded border focus:outline-none " onClick={submit}>Save</button>
         </>
         ); 
     }

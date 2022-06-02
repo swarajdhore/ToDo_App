@@ -372,8 +372,14 @@ export default function ToDoList() {
   // }
   //   console.log(taskList);
 
-
-  if(localStorage.getItem("tasks"))
+  var x = localStorage.getItem("tasks")
+  const y = JSON.parse(x);
+  console.log(y.tasks.length)
+  // if(!y.tasks)
+  // {
+  //   console.log(false)
+  // }
+  if(localStorage.getItem("tasks") && y.tasks.length)
   {
     return(
     <PaginationCompenent/>
