@@ -47,7 +47,7 @@ function NavRoutes() {
           </ul>
         </div>
         <Routes>
-          <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home />} />
           <Route path="/todolist" element={<ToDoList />}></Route>
           {/* <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route> */}
@@ -84,7 +84,7 @@ function NavRoutes() {
           </ul>
         </div>
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
           <Route path="/todolist" element={<ToDoList />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route>

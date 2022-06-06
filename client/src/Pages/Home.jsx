@@ -5,9 +5,9 @@ import ToDoList from "./ToDoList";
 
 function Home() {
   return (
-   <div className="">
-    {/* <Background_Image/> */}
-   </div>
+    <>
+   
+   </>
   );
 }
 

@@ -11,7 +11,7 @@ import usePagination from './pagination';
 import "../Task/Task.css";
 
 export function PaginationCompenent() {
-    var today = new Date();
+  var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   today = mm + '-' + dd;
