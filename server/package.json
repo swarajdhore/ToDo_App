@@ -21,6 +21,7 @@
     "mongodb": "^4.6.0",
     "mongoose": "^6.2.9",
     "passport": "^0.5.2",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {

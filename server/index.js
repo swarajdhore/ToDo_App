@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import passport from 'passport';
 
 //configs
+import googleAuthConfig from "./config/google.config";
 import routerConfig from './config/route.config';
 
 //Routes
@@ -19,6 +20,7 @@ import ConnectDB from './database/connection'
 const TodoApp = express();
 
 //passport config
+googleAuthConfig(passport);
 routerConfig(passport);
 
 TodoApp.use(express.json());

@@ -1,91 +1,75 @@
 import ToDoList from "../../Pages/ToDoList";
 import AddTasks from "../../Pages/AddTasks";
-import Home from "../../Pages/Home";
 import LoginPage from "../../Pages/LoginPage";
 import RegisterPage from "../../Pages/RegisterPage";
+import Home from "../../Pages/Home";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import React from "react";
-import Logout from "../Logout/Logout";
-import { getTask } from "../../Redux/Reducer/Task/task.action";
-import Logo from "../Logo/Logo";
+import React, { useEffect } from "react";
+
+import { useDispatch } from "react-redux";
+import { getMySelf } from "../../Redux/Reducer/User/user.action";
+import GoogleAuth from "../../Pages/GoogleAuth";
+
+import AOS from "aos";
+import DASHBOARD from "../../Pages/DASHBOARD";
 
 function Navbar() {
-   if (localStorage.todoAppUserID){
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem("todoAppUser")) dispatch(getMySelf());
+  }, []);
+  //const location = useLocation();
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: "phone",
+      duration: 700,
+      easing: "ease-out-cubic",
+    });
+  });
+
+  useEffect(() => {
+    document.querySelector("div").style.scrollBehavior = "auto";
+    window.scroll({ top: 0 });
+    document.querySelector("div").style.scrollBehavior = "";
+  });
+
+  //  let location = useLocation();
+  //   if (location.pathname.match(/login/)){
+  //     return null;
+  //   }
+  //const ComponentThatHides = withRouter(Componen);
+
+  if (localStorage.getItem("todoAppUser")) {
     return (
-    <Router>
-    
-      <div className="h-16 sticky top-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 ">
-        <div className=" absolute left-0">
-          <Logo />
-        </div>
-        <div onload={getTask()} className="md:block  absolute right-0 ">
-          <ul className="flow-root space-x-8 mr-8 mt-6 font-md">
-            {/* <li className="hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
-              <Link to="/">Home</Link>
-            </li> */}
-            {/* hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium */}
-             <li onClick={getTask()} className="float-left hover:bg-blue-faint rounded-md text-lg px-1 py-1">
-              <Link to="/todolist" >ToDoList</Link>
-            </li> 
-             <li className="float-right hover:bg-blue-faint rounded-md text-lg px-1 py-1"><Logout /></li>
-             
-            {/* <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
-              <Link to="/login">Login</Link>
-            </li>
-            <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
-              <Link to="/Register">Register</Link>
-            </li> */}
-          </ul>
-        </div>
-        <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/todolist" element={<ToDoList />}></Route>
-          {/* <Route path="/login" element={<LoginPage />}></Route>
+      <>
+        <Router>
+          <Routes>
+            <Route path="" element={<Home />} />
+            <Route path="/todolist" element={<ToDoList />}></Route>
+            {/* <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route> */}
-          <Route path="/addtask" element={<AddTasks />}></Route>
-        </Routes>
-      </div>
-    </Router>
-      
-    
-  );
-  }
-  else {return (
-// bg-gradient-to-r from-violet-500 to-fuchsia-500
-    <div className="h-16 sticky top-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 ">
+            <Route path="/addtask" element={<AddTasks />}></Route>
+            {/* <Route path="/google/:token" element={<GoogleAuth/>}></Route> */}
+            <Route path="/dashboard" element={<DASHBOARD />}></Route>
+          </Routes>
+        </Router>
+      </>
+    );
+  } else {
+    return (
       <Router>
-      <div className=" absolute left-0">
-          <Logo />
-        </div>
-        
-        <div className="md:block  absolute right-0 ">
-          <ul className="flow-root space-x-8 mr-8 mt-6 font-md">
-            {/* <li className="hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
-              <Link to="/">Home</Link>
-            </li>
-            <li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
-              <Link to="/todolist">ToDoList</Link>
-            </li> */}
-            <li className="float-left hover:bg-blue-faint rounded-md text-lg px-1 py-1">
-              <Link to="/login">Login</Link>
-            </li>
-            <li className="float-right hover:bg-blue-faint rounded-md text-lg px-1 py-1">
-              <Link to="/Register">Register</Link>
-            </li>
-          </ul>
-        </div>
         <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+          <Route path="" element={<Home />} />
           <Route path="/todolist" element={<ToDoList />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage/>}></Route>
+          <Route path="/register" element={<RegisterPage />}></Route>
           <Route path="/addtask" element={<AddTasks />}></Route>
+          <Route path="/google/:token/:id" element={<GoogleAuth />}></Route>
         </Routes>
-        </Router>
-        
-    </div>
-    
-  );}
-};
+      </Router>
+    );
+  }
+}
 
 export default Navbar;

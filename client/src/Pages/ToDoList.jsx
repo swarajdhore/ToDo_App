@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Task from "../components/Task/Task"
-import {useState} from 'react';
-import { getTask, Tasklist } from "../Redux/Reducer/Task/task.action";
-import Pagination from "@material-ui/lab/Pagination";
-import usePagination from "../components/Pagination/pagination";
+// import Task from "../components/Task/Task"
+//import {useState} from 'react';
+// import { getTask, Tasklist } from "../Redux/Reducer/Task/task.action";
+// import Pagination from "@material-ui/lab/Pagination";
+// import usePagination from "../components/Pagination/pagination";
 import "../components/Task/Task.css";
 import {PaginationCompenent} from "../components/Pagination/PaginationCompenent";
 import {_DATA} from "../components/Pagination/PaginationCompenent";
@@ -22,8 +22,9 @@ export default function ToDoList() {
     }
     else {
       return (
-    <div className=" h-14">
-      <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    <div className="  ">
+    
+      <div className="h-screen flex ">
       <div className="w-2/4 my-32 ml-60 shadow-default py-10 px-8">
         <div className="text-center">
         <button className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-4 my-2 rounded border focus:outline-none ">
@@ -39,8 +40,9 @@ export default function ToDoList() {
   }
   else {
   return (
-    <div className=" h-14">
-      <div className="h-screen flex bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    <div className="  ">
+   
+      <div className="h-screen flex ">
       <div className="w-2/4 my-32 ml-60 shadow-default py-10 px-8">
         <div className="text-center">
         <button className="bg-blue-dark hover:bg-blue-faint justify-start py-2 px-4 my-2 rounded border focus:outline-none ">
@@ -52,4 +54,6 @@ export default function ToDoList() {
      </div>
     </div>
   );}
+  
+ 
   }
