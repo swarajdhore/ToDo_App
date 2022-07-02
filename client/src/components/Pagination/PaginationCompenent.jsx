@@ -66,17 +66,17 @@ export function PaginationCompenent() {
 
   if (filter === false) {
     return (
-      <div className="">
+      <div className="overflow-hidden">
         {/* */}
         <div onload={getTask()} className="flex  ">
-          <div className="w-full my-40 shadow-default py-10 px-8">
+          <div className="w-full  shadow-default  px-8">
             <div className="text-center mb-4">
-              <h1 className="my-4 font-semibold text-4xl">All Tasks</h1>
+              <h1 className=" font-semibold text-4xl">All Tasks</h1>
               <div className="content-center">
                 <div className="flex flex-wrap space-x-4">
-                  <div className="bg-blue-dark hover:bg-blue-faint px-8 py-2 my-2 rounded border focus:outline-none ">
+                  {/* <div className="bg-blue-dark hover:bg-blue-faint px-8 py-2 my-2 rounded border focus:outline-none ">
                     <Link to="/addtask">Add Task</Link>
-                  </div>
+                  </div> */}
                   {/* <div className="bg-blue-dark hover:bg-blue-faint px-8  py-2 my-2  rounded border focus:outline-none"
         onClick={getTask()}>
         Update Page
@@ -111,9 +111,9 @@ export function PaginationCompenent() {
                 </div>
               </div>
             </div>
-            <div className="calendar-container left-0">
+            {/* <div className="calendar-container left-0">
               <Calendar value={dateState} onChange={changeDate} />
-            </div>
+            </div> */}
 
             <div className="m-10">
               <Pagination
@@ -235,17 +235,17 @@ export function PaginationCompenent() {
     );
   } else {
     return (
-      <div className="">
+      <div className="overflow-hidden">
         {/* */}
         <div onload={getTask()} className="flex">
-          <div className="w-full my-40 shadow-default py-10 px-8">
+          <div className="w-full shadow-default  px-8">
             <div className="text-center mb-4">
-              <h1 className="my-4 font-semibold text-4xl">Today's Tasks</h1>
+              <h1 className=" font-semibold text-4xl">Today's Tasks</h1>
               <div className="content-center my-16">
                 <div className="flex flex-wrap space-x-4">
-                  <div className="bg-blue-dark hover:bg-blue-faint px-8 py-2 my-2 rounded border focus:outline-none ">
+                  {/* <div className="bg-blue-dark hover:bg-blue-faint px-8 py-2 my-2 rounded border focus:outline-none ">
                     <Link to="/addtask">Add Task</Link>
-                  </div>
+                  </div> */}
                   {/* <div className="bg-blue-dark hover:bg-blue-faint px-8  py-2 my-2  rounded border focus:outline-none"
         onClick={getTask()}>
         Update Page
@@ -278,7 +278,7 @@ export function PaginationCompenent() {
                 </div>
               </div>
             </div>
-            <Calendar value={dateState} onChange={changeDate} />
+            {/* <Calendar value={dateState} onChange={changeDate} /> */}
             {/* <div className="m-10">
         <Pagination
           count={count}

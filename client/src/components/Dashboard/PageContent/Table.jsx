@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ToDoList from "../../../Pages/ToDoList";
 
 function Table() {
   const [deleteT, setDeleteT] = useState(false);
@@ -7,7 +8,10 @@ function Table() {
   };
 
   return (
-    <div class="bg-white shadow rounded-sm  ">
+    <div className="overflow-hidden z-0">
+      <ToDoList />
+    </div>
+    /* <div class="bg-white shadow rounded-sm  ">
       <table class="min-w-max w-full table-auto">
         <thead>
           <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -1077,7 +1081,7 @@ function Table() {
           </tr>
         </tbody>
       </table>
-    </div>
+            </div>*/
   );
 }
 

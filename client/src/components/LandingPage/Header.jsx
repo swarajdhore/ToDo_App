@@ -44,7 +44,10 @@ function Header() {
                     ToDoList
                   </Link>
                 </li>
-                <li className="btn-sm text-gray-200 bg-white-900 hover:bg-white-800 ml-3">
+                <li
+                  onClick={getTask()}
+                  className="btn-sm text-gray-200 bg-white-900 hover:bg-white-800 ml-3"
+                >
                   <Link
                     to="/dashboard"
                     className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"

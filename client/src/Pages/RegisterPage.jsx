@@ -1,47 +1,56 @@
-import {  Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import Background_Image from "../components/Background_Image/Background_Image";
 import { signUp } from "../Redux/Reducer/Auth/auth.action";
 import { FcGoogle } from "react-icons/fc";
+import { Notify2 } from "../components/Toast/Toast";
+import { notify } from "../Redux/Reducer/Auth/auth.action";
 
 export default function RegisterPage() {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
-      fullName: "",
-      email: "",
-      password: "",
-      phoneNumber: "",
+    fullName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
   });
-  const googleSignUp = () => (window.location.href = "http://localhost:4000/auth/google");
 
-  const handleChange = (e) =>{
-    setUserData ((prev) => ({...prev,[e.target.id]: e.target.value}));
-  }
-  const submit = (e) => {
-    console.log("Hello World")
+  const googleSignUp = () =>
+    (window.location.href = "http://localhost:4000/auth/google");
+
+  const handleChange = (e) => {
+    setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const submit = () => {
+    console.log("Hello World");
     setUserData({
       fullName: "",
       email: "",
       password: "",
       phoneNumber: "",
     });
-    dispatch(signUp({
-      fullName: userData.fullName,
-      email: userData.email,
-      password: userData.password,
-      phoneNumber: userData.phoneNumber,
-    }));
+    dispatch(
+      signUp({
+        fullName: userData.fullName,
+        email: userData.email,
+        password: userData.password,
+        phoneNumber: userData.phoneNumber,
+      })
+    );
+    notify();
   };
-
+  var emailsent = localStorage.getItem("EmailSent");
 
   return (
-<div>   
- <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
-   <div className="container">
-      <div className="flex flex-wrap -mx-4">
-         <div className="w-full px-4">
-            <div
-               className="
+    <div>
+      {/* {emailsent ?  : ""} */}
+      <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
+        <div className="container">
+          <div className="flex flex-wrap -mx-4">
+            <div className="w-full px-4">
+              <div
+                className="
                max-w-[525px]
                mx-auto
                text-center
@@ -54,22 +63,22 @@ export default function RegisterPage() {
                sm:px-12
                md:px-[60px]
                "
-               >
-               <div className="md:mb-8 text-center text-2xl">
+              >
+                <div className="md:mb-8 text-center text-2xl">
                   <a
-                     href="javascript:void(0)"
-                     className="inline-block max-w-[160px] mx-auto"
-                     >
-                  {/* <img src="https://img1.wsimg.com/isteam/ip/ad9f9611-18da-4adc-8824-90b6c54786d4/492851_admin_256x256.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:365,h:365,cg:true" alt="logo" height="50px" width="50px"/> */}
-                  Register
+                    href="javascript:void(0)"
+                    className="inline-block max-w-[160px] mx-auto"
+                  >
+                    {/* <img src="https://img1.wsimg.com/isteam/ip/ad9f9611-18da-4adc-8824-90b6c54786d4/492851_admin_256x256.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:365,h:365,cg:true" alt="logo" height="50px" width="50px"/> */}
+                    Register
                   </a>
-               </div>
-               <form>
-                    <div class="mb-6">
-                     <input
-                        type="text"
-                        placeholder="Full Name"
-                        class="
+                </div>
+                <form>
+                  <div class="mb-6">
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      class="
                         w-full
                         rounded-md
                         border
@@ -83,17 +92,17 @@ export default function RegisterPage() {
                         focus-visible:shadow-none
                         focus:border-primary
                         "
-                        id="fullName"
-                        value={userData.fullName}
-                        onChange={handleChange}
-                        required
-                        />
+                      id="fullName"
+                      value={userData.fullName}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
                   <div className="mb-6">
-                     <input
-                        type="text"
-                        placeholder="Email"
-                        className="
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      className="
                         w-full
                         rounded-md
                         border
@@ -107,17 +116,17 @@ export default function RegisterPage() {
                         focus-visible:shadow-none
                         focus:border-primary
                         "
-                        id="email"
-                        value={userData.email}
-                        onChange={handleChange}
-                        required
-                        />
+                      id="email"
+                      value={userData.email}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
                   <div className="mb-6">
-                     <input
-                        type="password"
-                        placeholder="Password"
-                        className="
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className="
                         w-full
                         rounded-md
                         border
@@ -131,17 +140,17 @@ export default function RegisterPage() {
                         focus-visible:shadow-none
                         focus:border-primary
                         "
-                        id="password"
-                        value={userData.password}
-                        onChange={handleChange}
-                        required
-                        />
+                      id="password"
+                      value={userData.password}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
-                   <div className="mb-6">
-                     <input
-                        type="text"
-                        placeholder="Phone Number"
-                        className="
+                  <div className="mb-6">
+                    <input
+                      type="text"
+                      placeholder="Phone Number"
+                      className="
                         w-full
                         rounded-md
                         border
@@ -155,17 +164,17 @@ export default function RegisterPage() {
                         focus-visible:shadow-none
                         focus:border-primary
                         "
-                        id="phoneNumber"
-                        value={userData.phoneNumber}
-                        onChange={handleChange}
-                        required
-                        />
+                      id="phoneNumber"
+                      value={userData.phoneNumber}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
-                  <div className="mb-10" onChange={submit}>
-                     <input
-                        type="submit"
-                        value="Register"
-                        className="
+                  <div className="mb-10" onClick={submit}>
+                    <input
+                      type="submit"
+                      value="Register"
+                      className="
                         w-full
                         rounded-md
                         border
@@ -178,20 +187,20 @@ export default function RegisterPage() {
                         hover:bg-opacity-90
                         transition
                         "
-                        />
+                    />
                   </div>
-               </form>
-                              <p className="text-base mb-6 text-[#adadad]">Connect With</p>
-               <div className="flex justify-between -mx-2 mb-12">
-       
+                </form>
+                <p className="text-base mb-6 text-[#adadad]">Connect With</p>
+                <div className="flex justify-between -mx-2 mb-12">
                   <button
                     onClick={googleSignUp}
                     className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"
                   >
                     Sign up with Google <FcGoogle />
                   </button>
-                  </div>
-               {/* <p className="text-base mb-6 text-[#adadad]">Connect With</p>
+                </div>
+
+                {/* <p className="text-base mb-6 text-[#adadad]">Connect With</p>
                <ul className="flex justify-between -mx-2 mb-12">
                   <li className="px-2 w-full">
                      <a
@@ -275,7 +284,7 @@ export default function RegisterPage() {
                      </a>
                   </li>
                </ul> */}
-               {/* <a
+                {/* <a
                   href="javascript:void(0)"
                   className="
                   text-base
@@ -287,330 +296,17 @@ export default function RegisterPage() {
                   >
                Forget Password?
                </a> */}
-               <p className="text-base text-[#adadad]">
+                <p className="text-base text-[#adadad]">
                   Already a Member?
-                  <a
-                     href="/login"
-                     className="text-primary hover:underline"
-                     >
-                  Sign In
+                  <a href="/login" className="text-primary hover:underline">
+                    Sign In
                   </a>
-               </p>
-               {/* <div>
-                  <span className="absolute top-1 right-1">
-                     <svg
-                        width="40"
-                        height="40"
-                        viewBox="0 0 40 40"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        >
-                        <circle
-                           cx="1.39737"
-                           cy="38.6026"
-                           r="1.39737"
-                           transform="rotate(-90 1.39737 38.6026)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="1.39737"
-                           cy="1.99122"
-                           r="1.39737"
-                           transform="rotate(-90 1.39737 1.99122)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="13.6943"
-                           cy="38.6026"
-                           r="1.39737"
-                           transform="rotate(-90 13.6943 38.6026)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="13.6943"
-                           cy="1.99122"
-                           r="1.39737"
-                           transform="rotate(-90 13.6943 1.99122)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="25.9911"
-                           cy="38.6026"
-                           r="1.39737"
-                           transform="rotate(-90 25.9911 38.6026)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="25.9911"
-                           cy="1.99122"
-                           r="1.39737"
-                           transform="rotate(-90 25.9911 1.99122)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="38.288"
-                           cy="38.6026"
-                           r="1.39737"
-                           transform="rotate(-90 38.288 38.6026)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="38.288"
-                           cy="1.99122"
-                           r="1.39737"
-                           transform="rotate(-90 38.288 1.99122)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="1.39737"
-                           cy="26.3057"
-                           r="1.39737"
-                           transform="rotate(-90 1.39737 26.3057)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="13.6943"
-                           cy="26.3057"
-                           r="1.39737"
-                           transform="rotate(-90 13.6943 26.3057)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="25.9911"
-                           cy="26.3057"
-                           r="1.39737"
-                           transform="rotate(-90 25.9911 26.3057)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="38.288"
-                           cy="26.3057"
-                           r="1.39737"
-                           transform="rotate(-90 38.288 26.3057)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="1.39737"
-                           cy="14.0086"
-                           r="1.39737"
-                           transform="rotate(-90 1.39737 14.0086)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="13.6943"
-                           cy="14.0086"
-                           r="1.39737"
-                           transform="rotate(-90 13.6943 14.0086)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="25.9911"
-                           cy="14.0086"
-                           r="1.39737"
-                           transform="rotate(-90 25.9911 14.0086)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="38.288"
-                           cy="14.0086"
-                           r="1.39737"
-                           transform="rotate(-90 38.288 14.0086)"
-                           fill="#3056D3"
-                           />
-                     </svg>
-                  </span>
-                  <span className="absolute left-1 bottom-1">
-                     <svg
-                        width="29"
-                        height="40"
-                        viewBox="0 0 29 40"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        >
-                        <circle
-                           cx="2.288"
-                           cy="25.9912"
-                           r="1.39737"
-                           transform="rotate(-90 2.288 25.9912)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="14.5849"
-                           cy="25.9911"
-                           r="1.39737"
-                           transform="rotate(-90 14.5849 25.9911)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="26.7216"
-                           cy="25.9911"
-                           r="1.39737"
-                           transform="rotate(-90 26.7216 25.9911)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="2.288"
-                           cy="13.6944"
-                           r="1.39737"
-                           transform="rotate(-90 2.288 13.6944)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="14.5849"
-                           cy="13.6943"
-                           r="1.39737"
-                           transform="rotate(-90 14.5849 13.6943)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="26.7216"
-                           cy="13.6943"
-                           r="1.39737"
-                           transform="rotate(-90 26.7216 13.6943)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="2.288"
-                           cy="38.0087"
-                           r="1.39737"
-                           transform="rotate(-90 2.288 38.0087)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="2.288"
-                           cy="1.39739"
-                           r="1.39737"
-                           transform="rotate(-90 2.288 1.39739)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="14.5849"
-                           cy="38.0089"
-                           r="1.39737"
-                           transform="rotate(-90 14.5849 38.0089)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="26.7216"
-                           cy="38.0089"
-                           r="1.39737"
-                           transform="rotate(-90 26.7216 38.0089)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="14.5849"
-                           cy="1.39761"
-                           r="1.39737"
-                           transform="rotate(-90 14.5849 1.39761)"
-                           fill="#3056D3"
-                           />
-                        <circle
-                           cx="26.7216"
-                           cy="1.39761"
-                           r="1.39737"
-                           transform="rotate(-90 26.7216 1.39761)"
-                           fill="#3056D3"
-                           />
-                     </svg>
-                  </span>
-               </div> */}
+                </p>
+              </div>
             </div>
-         </div>
-      </div>
-   </div>
-</section>
-</div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
-  
-
-
-// import { useState } from "react";
-// import Button from "../components/UI/Button";
-
-// function RegisterPage() {
-//   const [enteredName, setEnteredName] = useState("");
-//   const nameHandler = (event) => {
-//     setEnteredName(event.target.value);
-//     console.log(event.target.value);
-//   };
-
-//   const [enteredEmail, setEnteredEmail] = useState("");
-//   const emailHandler = (event) => {
-//     setEnteredEmail(event.target.value);
-//     console.log(event.target.value);
-//   };
-
-//   const [enteredPassword, setEnteredPassword] = useState("");
-//   const passwordHandler = (event) => {
-//     setEnteredPassword(event.target.value);
-//     console.log(event.target.value);
-//   };
-
-//   const [enteredPhoneNumber, setEnteredPhoneNumber] = useState("");
-//   const phoneNumberHandler = (event) => {
-//     setEnteredPhoneNumber(event.target.value);
-//     console.log(event.target.value);
-//   };
-
-//   const submitHandler = (event) => {
-//     event.preventDefault();
-//   };
-
-//   return (
-//     <div className="h-screen flex bg-gray-300">
-//       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
-//         <h2 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
-//           Register Form
-//         </h2>
-//         <form onSubmit={submitHandler}>
-//           <div>
-//             <label className="text-gray-600 font-medium">Name</label>
-//             <input
-//               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
-//               type="Name"
-//               placeholder="Name"
-//               value={enteredName}
-//               onChange={nameHandler}
-//             />
-//           </div>
-//           <div>
-//             <label className="text-gray-600 font-medium">E-Mail</label>
-//             <input
-//               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
-//               type="email"
-//               placeholder="E-Mail"
-//               value={enteredEmail}
-//               onChange={emailHandler}
-//             />
-//           </div>
-//           <div>
-//             <label className="text-gray-600 font-medium">Password</label>
-//             <input
-//               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
-//               type="password"
-//               placeholder="Password"
-//               value={enteredPassword}
-//               onChange={passwordHandler}
-//             />
-//           </div>
-//           <div>
-//             <label className="text-gray-600 font-medium">Phone Number</label>
-//             <input
-//               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
-//               type="phone-number"
-//               placeholder="Phone Number"
-//               value={enteredPhoneNumber}
-//               onChange={phoneNumberHandler}
-//             />
-//           </div>
-//           <div>
-//             <Button type="submit">Submit</Button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default RegisterPage;

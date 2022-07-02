@@ -4,7 +4,7 @@ import Statistics from "./PageContent/Statistics";
 
 function PageContent() {
   return (
-    <main class=" flex-1 h-full overflow-y-scroll overflow-x-hidden ">
+    <main class=" flex-1 min-h-screen overflow-y-scroll ">
       <div class="md:hidden justify-between items-center bg-black text-white flex">
         <h1 class="text-2xl font-bold px-4">Tasky</h1>
         {/* @click="navOpen = !navOpen" */}
@@ -25,11 +25,11 @@ function PageContent() {
           </svg>
         </button>
       </div>
-      <section class="max-w-8xl w-max my-full absolute py-4 px-7 object-cover">
-        <div class="flex justify-between items-center border-b border-gray-300">
+      <section class="max-w-8xl w-max my-full absolute py-4 px-7 object-cover ">
+        {/* <div class="flex justify-between items-center border-b border-gray-300">
           <h1 class="text-2xl font-semibold pt-2 pb-6">Dashboard</h1>
-        </div>
-        <Statistics />
+        </div> */}
+        {/* <Statistics /> */}
         <Table />
       </section>
     </main>

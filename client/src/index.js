@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import store from "./Redux/store";
 import axios from "axios";
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 //import { BrowserRouter } from "react-router-dom";
 
 // tar mag axios ka use karat aahe  ??
@@ -18,13 +20,11 @@ if (localStorage.todoAppUser) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    
     <Provider store={store}>
-    <App/>
-    {/* <Route exact path="/login" Component={<LoginPage />} /> */}
+      <App />
+      {/* <Route exact path="/login" Component={<LoginPage />} /> */}
       {/* </App> */}
     </Provider>
-    
   </React.StrictMode>
 );
 // ReactDOM.render(

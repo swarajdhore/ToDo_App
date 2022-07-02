@@ -3,6 +3,7 @@ import AddTasks from "../../Pages/AddTasks";
 import LoginPage from "../../Pages/LoginPage";
 import RegisterPage from "../../Pages/RegisterPage";
 import Home from "../../Pages/Home";
+import Profile from "../Profile/Profile";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import React, { useEffect } from "react";
 
@@ -12,6 +13,9 @@ import GoogleAuth from "../../Pages/GoogleAuth";
 
 import AOS from "aos";
 import DASHBOARD from "../../Pages/DASHBOARD";
+import ErrorPage from "../../Pages/ErrorPage";
+import { ToastContainer } from "react-toastify";
+import { Email } from "../Email/Email";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -45,29 +49,40 @@ function Navbar() {
       <>
         <Router>
           <Routes>
-            <Route path="" element={<Home />} />
-            <Route path="/todolist" element={<ToDoList />}></Route>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/todolist" element={<ToDoList />}></Route>
             {/* <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route> */}
-            <Route path="/addtask" element={<AddTasks />}></Route>
+            <Route exact path="/addtask" element={<AddTasks />}></Route>
             {/* <Route path="/google/:token" element={<GoogleAuth/>}></Route> */}
-            <Route path="/dashboard" element={<DASHBOARD />}></Route>
+            <Route exact path="/dashboard" element={<DASHBOARD />}></Route>
+            <Route exact path="/profile" element={<Profile />}></Route>
+            <Route exact path="/email" element={<Email />}></Route>
+            <Route path="*" element={<ErrorPage />}></Route>
           </Routes>
         </Router>
       </>
     );
   } else {
     return (
-      <Router>
-        <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="/todolist" element={<ToDoList />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />}></Route>
-          <Route path="/addtask" element={<AddTasks />}></Route>
-          <Route path="/google/:token/:id" element={<GoogleAuth />}></Route>
-        </Routes>
-      </Router>
+      <>
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/todolist" element={<ToDoList />}></Route>
+            <Route exact path="/login" element={<LoginPage />}></Route>
+            <Route exact path="/register" element={<RegisterPage />}></Route>
+            <Route exact path="/addtask" element={<AddTasks />}></Route>
+            <Route
+              exact
+              path="/google/:token/:id/:email"
+              element={<GoogleAuth />}
+            ></Route>
+            <Route exact path="/email" element={<Email />}></Route>
+            <Route path="*" element={<ErrorPage />}></Route>
+          </Routes>
+        </Router>
+      </>
     );
   }
 }

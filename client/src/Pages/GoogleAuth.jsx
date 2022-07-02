@@ -6,15 +6,16 @@ import { useDispatch } from "react-redux";
 import { googleAuth } from "../Redux/Reducer/Auth/auth.action";
 
 function GoogleAuth() {
-  const { token }  = useParams();
-  const {id} = useParams();
-  
+  const { token } = useParams();
+  const { id } = useParams();
+  const { email } = useParams();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (token) {
-      dispatch(googleAuth(token,id)).then(() => navigate("/"));
+      dispatch(googleAuth(token, id, email)).then(() => navigate("/"));
     }
   }, [token]);
 

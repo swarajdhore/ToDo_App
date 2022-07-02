@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   // purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -6,6 +6,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundImage: {
+        "profile-baground": "url('https://source.unsplash.com/1L71sPT5XKc')",
+      },
       colors: {
         transparent: "transparent",
         current: "currentColor",
@@ -47,21 +50,21 @@ module.exports = {
       },
     },
     screens: {
-      'sm': '640px',
+      sm: "640px",
       // => @media (min-width: 640px) { ... }
 
-      'md': '768px',
+      md: "768px",
       // => @media (min-width: 768px) { ... }
 
-      'lg': '1024px',
+      lg: "1024px",
       // => @media (min-width: 1024px) { ... }
 
-      'xl': '1280px',
+      xl: "1280px",
       // => @media (min-width: 1280px) { ... }
 
-      '2xl': '1536px',
+      "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
-    }
+    },
   },
   variants: {
     extend: {},

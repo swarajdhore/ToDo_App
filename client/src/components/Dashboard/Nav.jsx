@@ -4,18 +4,22 @@ import SearchBar from "./SearchBar";
 import DropdownList from "./DropdownList";
 import Profile from "./Profile";
 import PageContent from "./PageContent";
+import { getUser } from "../../Redux/Reducer/User/user.action";
 
 function Nav() {
   return (
     <>
-      <nav class="absolute md:relative w-64 transform -translate-x-full md:translate-x-0 h-screen overflow-y-scroll bg-black transition-all duration-300">
-        <div class="flex flex-col justify-between h-full">
+      <nav
+        onLoad={getUser()}
+        class="absolute md:relative w-64 transform -translate-x-full md:translate-x-0 overflow-y-scroll bg-black transition-all duration-300"
+      >
+        <div class="flex flex-col justify-between h-screen  sticky">
           <div class="p-4">
             <Logo />
             <SearchBar />
-            <a
+            {/* <a
               href="#"
-              class="block py-2.5 px-4 flex items-center space-x-2 bg-gray-800 text-white hover:bg-gray-800 hover:text-white rounded"
+              class=" py-2.5 px-4 flex items-center space-x-2 bg-gray-800 text-white hover:bg-gray-800 hover:text-white rounded"
             >
               <svg
                 class="w-6 h-6"
@@ -32,7 +36,7 @@ function Nav() {
                 ></path>
               </svg>
               <span>Dashboard</span>
-            </a>
+            </a> */}
             <DropdownList />
             <Profile />
           </div>
