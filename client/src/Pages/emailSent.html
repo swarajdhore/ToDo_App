@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body,
+      html {
+        background: #ca3dff;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      svg {
+        width: 100%;
+        height: 90%;
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width="506.5px"
+      height="506.5px"
+      viewBox="0 0 506.5 506.5"
+    >
+      <defs>
+        <clipPath id="mask">
+          <circle id="bgClip" cx="253.25" cy="253.25" r="64" />
+        </clipPath>
+      </defs>
+      <g clip-path="url(#mask)">
+        <circle id="bg" fill="#4CB6CF" cx="253.25" cy="253.25" r="64" />
+        <g id="paperAirplane">
+          <path
+            id="shadow"
+            fill="#633D50"
+            d="M295.379,241.621l-47.078,0.887c-1.596,6.559-6.292,12.01-12.417,14.631l5.191,11.02
+        c1.172,2.488,4.106,3.447,6.521,2.131l48.391-26.368C298.402,242.604,298.128,241.568,295.379,241.621z"
+          />
+          <path
+            id="paper"
+            fill="#FFFFFF"
+            d="M295.68,243.242l-64.97,23.73c-2.58,0.939-3.84-0.371-2.79-2.91l5.16-12.521l-19.73-8.11
+        c-2.539-1.05-2.369-1.899,0.381-1.899h81.649C298.13,241.532,298.26,242.302,295.68,243.242z"
+          />
+        </g>
+        <g id="paperAirplaneBg">
+          <path
+            id="shadowBg"
+            fill="#442939"
+            d="M229.492,243.843l27.422,0.571c0.93,4.23,3.666,7.747,7.233,9.438l-3.023,7.108
+      c-0.684,1.604-2.393,2.223-3.799,1.373l-28.188-17.008C227.73,244.476,227.891,243.808,229.492,243.843z"
+          />
+          <path
+            id="paperBg"
+            fill="#633D50"
+            d="M229.317,244.889l37.844,15.306c1.503,0.606,2.236-0.239,1.626-1.877l-3.007-8.076
+      l11.493-5.23c1.479-0.678,1.38-1.226-0.222-1.226h-47.56C227.891,243.785,227.814,244.281,229.317,244.889z"
+          />
+        </g>
+      </g>
+    </svg>
+    <script>
+      var select = function (s) {
+          return document.querySelector(s);
+        },
+        plane = select("#paperAirplane"),
+        planeBg = select("#paperAirplaneBg");
+
+      TweenMax.set(planeBg, {
+        alpha: 0,
+        x: "200px",
+      });
+
+      var tl = new TimelineMax({ repeat: -1, repeatDelay: 1 });
+
+      tl.to(plane, 1, {
+        x: "-15px",
+        rotation: "-10deg",
+        ease: Elastic.easeInOut.config(1, 0.6),
+      })
+        .to(plane, 1, {
+          y: "-20px",
+          x: "200px",
+          rotation: "25deg",
+          alpha: 0,
+        })
+        .to(
+          planeBg,
+          0.8,
+          {
+            alpha: 1,
+            rotation: "-5deg",
+            y: "-10px",
+            x: "-120px",
+          },
+          "-=0.3"
+        )
+        .to(plane, 0.2, {
+          y: "-10px",
+          x: "-100px",
+          rotation: "-10deg",
+        })
+        .to(plane, 0.8, {
+          alpha: 1,
+          rotation: 0,
+          y: 0,
+          x: 0,
+        });
+    </script>
+  </body>
+</html>

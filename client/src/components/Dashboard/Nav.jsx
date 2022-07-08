@@ -10,7 +10,7 @@ function Nav() {
   return (
     <>
       <nav
-        onLoad={getUser()}
+        // onLoad={getUser()}
         class="absolute md:relative w-64 transform -translate-x-full md:translate-x-0 overflow-y-scroll bg-black transition-all duration-300"
       >
         <div class="flex flex-col justify-between h-screen  sticky">

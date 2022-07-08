@@ -1,0 +1,73 @@
+# Query: getUser
+# ContextLines: 1
+
+
+
+client/src/components/Dashboard/Nav.jsx:
+   7: import { getUser } from "../../Redux/Reducer/User/user.action";
+  13:         // onLoad={getUser()}
+
+client/src/components/Navbar/Navbar.jsx:
+  10  import { useDispatch } from "react-redux";
+  11: import { getMySelf, getUser } from "../../Redux/Reducer/User/user.action";
+  12  import GoogleAuth from "../../Pages/GoogleAuth";
+
+client/src/Pages/DASHBOARD.jsx:
+   5  import { getTask } from "../Redux/Reducer/Task/task.action";
+   6: import { getUser } from "../Redux/Reducer/User/user.action";
+   7  import ErrorPage from "./ErrorPage";
+
+  18        <div
+  19:         // onload={getUser()}
+  20          className="flex relative"
+
+client/src/Pages/Home.jsx:
+   9  // import Toast from "../components/Toast/Toast";
+  10: import { getUser } from "../Redux/Reducer/User/user.action";
+  11  
+
+  14    var userid = JSON.stringify(users);
+  15:   // var xlog = getUser();
+  16    // console.log(xlog);
+
+  21        <div
+  22:         onLoad={getUser(userid)}
+  23          className="flex flex-col min-h-screen overflow-hidden"
+
+  25          <Notify />
+  26:         {/* {users && getUser()} */}
+  27          {/*  Site header */}
+
+  50    //         <Notify />
+  51:   //         {users && getUser()}
+  52    //         {/*  Site header */}
+
+  73    //       <div className="flex flex-col min-h-screen overflow-hidden">
+  74:   //         {users && getUser()}
+  75    //         {/*  Site header */}
+
+client/src/Redux/Reducer/Auth/auth.action.js:
+   7  // redux actions
+   8: import { getMySelf, clearUser, getUser } from "../User/user.action";
+   9  import { getTask } from "../Task/task.action";
+
+  28      console.log(User.data.id);
+  29:     const x = await dispatch(getUser(User.data.id));
+  30      console.log(x);
+
+client/src/Redux/Reducer/User/user.action.js:
+  7  
+  8: export const getUser = (id) => async (dispatch) => {
+  9    // const id_value = localStorage.getItem("todoAppUserID");
+
+server/API/EmailVerification/index.js:
+  13      const { token } = req.params;
+  14:     const getUser = await UserModel.findById(id);
+  15:     console.log(getUser);
+  16      var updatedVerify = await UserModel.updateOne(
+
+server/API/User/index.js:
+  39:       const getUser = await UserModel.findById(_id);
+  41:       if (!getUser) return res.status(400).json({ user: "User not found" });
+  42:       // const { fullName } = getUser;
+  44:       return res.status(200).json({ user: getUser });

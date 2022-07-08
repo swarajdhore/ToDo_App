@@ -1,11 +1,16 @@
 import React from "react";
+import axios from "axios";
 import Nav from "../components/Dashboard/Nav";
 import PageContent from "../components/Dashboard/PageContent";
-import { getTask, Tasklist } from "../Redux/Reducer/Task/task.action";
-// import { getUser } from "../Redux/Reducer/User/user.action";
+import { getTask } from "../Redux/Reducer/Task/task.action";
+import EmailSent from "./EmailSent";
+
+// import { User } from "../Redux/Reducer/User/user.action";
 
 function DASHBOARD() {
-  return (
+  // const dispatch = useDispatch();
+
+  return localStorage.getItem("verified") === "true" ? (
     <div onload={getTask()} className="antialiased bg-gray-100 overflow-hidden">
       <div
         // onload={getUser()}
@@ -16,6 +21,8 @@ function DASHBOARD() {
         <PageContent />
       </div>
     </div>
+  ) : (
+    <EmailSent />
   );
 }
 

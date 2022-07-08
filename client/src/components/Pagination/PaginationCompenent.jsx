@@ -8,6 +8,7 @@ import "../Task/Task.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./Calandar.css";
+import { deleteTasks } from "../../Redux/Reducer/Task/task.action";
 
 export function PaginationCompenent() {
   var today = new Date();
@@ -99,6 +100,7 @@ export function PaginationCompenent() {
                   >
                     Today's Task
                   </div>
+
                   <div className="items-end mt-2 ">
                     <input
                       type="text"
@@ -125,25 +127,29 @@ export function PaginationCompenent() {
                 onChange={handleChange}
               />
             </div>
-            <table class="min-w-max w-full table-auto">
-              <thead>
-                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th class="py-3 px-6 text-left">Name</th>
-                  <th class="py-3 px-6 text-left">Description</th>
-                  <th class="py-3 px-6 text-center">Date</th>
-                  <th class="py-3 px-6 text-center">Status</th>
-                  <th
-                    className={`${
-                      deleteT === true
-                        ? "visible py-3 px-6 text-center"
-                        : "invisible"
-                    }`}
-                  >
-                    Delete
-                  </th>
-                </tr>
-              </thead>
-            </table>
+            <button
+              onClick={deleteTasks}
+              className={`${
+                deleteT === true
+                  ? "visible bg-blue-dark hover:bg-blue-faint px-8  py-2 my-2  rounded border focus:outline-none"
+                  : "invisible"
+              }`}
+            >
+              Delete Selected Items
+            </button>
+            <div class="bg-white shadow rounded-sm my-2.5 overflow-x-auto">
+              <table class="min-w-max w-full table-auto">
+                <thead>
+                  <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">Project</th>
+                    <th class="py-3 px-6 text-left">Client</th>
+                    <th class="py-3 px-6 text-center">Users</th>
+                    <th class="py-3 px-6 text-center">Status</th>
+                    <th className="visible py-3 px-6 text-center">Actions</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
             {search === ""
               ? _DATA
                   .currentData()
@@ -266,6 +272,7 @@ export function PaginationCompenent() {
       onClick={handleCLickForFilter} >
         Today's Task
       </div> */}
+
                   <div className="items-end mt-2 ">
                     <input
                       type="text"
@@ -289,25 +296,30 @@ export function PaginationCompenent() {
           onChange={handleChange}
         /> 
       </div>  */}
-            <table className="mt-2">
-              <thead>
-                {/* px-1 py-3 text-mid text-lg font-medium text-gray-500 flex */}
-                <tr>
-                  {/* border-solid  flex overflow-x-auto w-50 */}
-                  <th className="w-1/5">Name</th>
-                  <th className="w-1/3">Description</th>
-                  <th className="w-1/8">Date</th>
-                  <th className="w-1/6">Status</th>
-                  <th
-                    className={`${
-                      deleteT === true ? "visible w-1/8" : "invisible w-1/8"
-                    }`}
-                  >
-                    Delete
-                  </th>
-                </tr>
-              </thead>
-            </table>
+            <button
+              onClick={deleteTasks()}
+              className={`${
+                deleteT === true
+                  ? "visible bg-blue-dark hover:bg-blue-faint px-8  py-2 my-2  rounded border focus:outline-none"
+                  : "invisible"
+              }`}
+            >
+              Delete Selected Items
+            </button>
+            <div class="bg-white shadow rounded-sm my-2.5 overflow-x-auto">
+              <table class="min-w-max w-full table-auto">
+                <thead>
+                  <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">Name</th>
+                    <th class="py-3 px-6 text-left">Description</th>
+                    <th class="py-3 px-6 text-center">Date and Time</th>
+                    <th class="py-3 px-6 text-center">Status</th>
+
+                    <th className="visible py-3 px-6 text-center">Actions</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
             <div>{taskList.time}</div>
 
             {taskList

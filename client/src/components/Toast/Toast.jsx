@@ -39,7 +39,7 @@ export function Notify2({ emailsent }) {
   var email = JSON.parse(emailsent);
   toast.configure();
   if (emailsent) {
-    toast.warn("Please verify your email ", {
+    toast.warn("Email Sent Successfully ", {
       toastId: "success3",
       pauseOnHover: false,
       closeOnClick: false,

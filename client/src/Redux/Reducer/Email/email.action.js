@@ -39,18 +39,20 @@ export const sendEmail = () => async (dispatch) => {
 
 export const verifyEmail = () => async (dispatch) => {
   try {
-    const id_value = localStorage.getUser("todoAppUserID");
+    const id_value = localStorage.getItem("todoAppUserID");
     const id = JSON.parse(id_value);
-    const token_value = localStorage.getUser("todoAppUser");
+    const token_value = localStorage.getItem("todoAppUser");
     const token = JSON.parse(token_value);
 
     const verify = await axios({
-      method: "POST",
-      url: `http://localhost:4000/${id}/verify/${token}`,
+      method: "GET",
+      url: `http://localhost:4000/verify/${id}/${token}`,
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (verify) localStorage.setItem("verified", true);
+    console.log(verify);
     return dispatch({ type: VERIFYEMAIL, payload: verify.data });
   } catch (err) {
-    dispatch({ type: "ERROR", payload: error });
+    dispatch({ type: "ERROR", payload: err });
   }
 };

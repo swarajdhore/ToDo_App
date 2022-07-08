@@ -11,11 +11,12 @@ export const Email = () => {
     token: JSON.parse(lstoken),
   };
   emailjs
-    .send("service_1ptx9u5", "template_aeabztb", data, "vtLrOwezZGAltiC33")
+    .send("default_service", "template_aeabztb", data, "vtLrOwezZGAltiC33")
     .then(
       (result) => {
         console.log(result.text);
         localStorage.setItem("EmailSent", true);
+        
       },
       (error) => {
         console.log(error.text);

@@ -12,7 +12,7 @@ const Router = express.Router();
 // Access          Public
 // Method          GET
 // */
-Router.get("/", passport.authenticate("jwt"), (req, res) => {
+Router.get("/", (req, res) => {
   try {
     const { email, fullName, phoneNumber } = req.session.passport.user._doc;
 
@@ -39,9 +39,9 @@ Router.get(
       const getUser = await UserModel.findById(_id);
 
       if (!getUser) return res.status(400).json({ user: "User not found" });
-      const { fullName } = getUser;
+      // const { fullName } = getUser;
 
-      return res.status(200).json({ user: { fullName } });
+      return res.status(200).json({ user: getUser });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

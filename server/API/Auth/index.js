@@ -53,7 +53,7 @@ Router.post("/login", async (req, res) => {
     const validation = await ValidateLogin(req.body.credentials);
 
     const user = await UserModel.findByEmailAndPassword(req.body.credentials);
-    const userDetails = await UserModel.findOne(user.email);
+    //const userDetails = await UserModel.findOne(user.email);
     const token = user.generateJwtToken();
     const id = user._id;
     const email = user.email;
@@ -97,22 +97,22 @@ Router.get(
     try {
       var token = req.session.passport.user.token;
       var id = req.session.passport.user.user._id;
-      var email = req.session.passport.user.user.email;
-      console.log(email);
-      var tokenbody = { token, id, email };
+
+      //var fullName = req.fullName;
+      //var userType = req.session.passport.userType;
+      //console.log(userType);
+      // var tokenbody = { token, id, email };
       // return (res.status(200).json({token,id}
       //   )
       // );
-      return res.redirect(
-        `http://localhost:3000/google/${token}/${id}/${email}`
-      );
+      return res.redirect(`http://localhost:3000/google/${token}/${id}`);
       //(
       //  `http://localhost:3000/google/${req.session.passport.user.user._id}`
       //  //`http://localhost:3000/`
       // //{token:req.session.passport.user.token}
       //);
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: "Hello1 " + error.message });
     }
   }
 );

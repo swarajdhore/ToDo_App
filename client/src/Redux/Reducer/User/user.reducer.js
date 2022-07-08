@@ -9,12 +9,10 @@ const UserReducer = (state = initialState, action) => {
     case GET_USER:
       return {
         ...state,
-        user: action.payload,
       };
     case SELF:
       return {
         ...state,
-        user: action.payload,
       };
     case CLEAR_USER:
       return {};

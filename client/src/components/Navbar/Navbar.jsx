@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import React, { useEffect } from "react";
 
 import { useDispatch } from "react-redux";
-import { getMySelf } from "../../Redux/Reducer/User/user.action";
+import { getMySelf, getUser } from "../../Redux/Reducer/User/user.action";
 import GoogleAuth from "../../Pages/GoogleAuth";
 
 import AOS from "aos";
@@ -16,6 +16,8 @@ import DASHBOARD from "../../Pages/DASHBOARD";
 import ErrorPage from "../../Pages/ErrorPage";
 import { ToastContainer } from "react-toastify";
 import { Email } from "../Email/Email";
+import EmailSent from "../Email/EmailSent";
+import { getTask } from "../../Redux/Reducer/Task/task.action";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -58,6 +60,12 @@ function Navbar() {
             <Route exact path="/dashboard" element={<DASHBOARD />}></Route>
             <Route exact path="/profile" element={<Profile />}></Route>
             <Route exact path="/email" element={<Email />}></Route>
+            <Route exact path="/emailsent" element={<EmailSent />}></Route>
+            <Route
+              exact
+              path="/verify/:id/:token"
+              element={<EmailSent />}
+            ></Route>
             <Route path="*" element={<ErrorPage />}></Route>
           </Routes>
         </Router>
@@ -75,10 +83,16 @@ function Navbar() {
             <Route exact path="/addtask" element={<AddTasks />}></Route>
             <Route
               exact
-              path="/google/:token/:id/:email"
+              path="/google/:token/:id"
               element={<GoogleAuth />}
             ></Route>
+            <Route
+              exact
+              path="/verify/:id/:token"
+              element={<EmailSent />}
+            ></Route>
             <Route exact path="/email" element={<Email />}></Route>
+            <Route exact path="/emailsent" element={<EmailSent />}></Route>
             <Route path="*" element={<ErrorPage />}></Route>
           </Routes>
         </Router>

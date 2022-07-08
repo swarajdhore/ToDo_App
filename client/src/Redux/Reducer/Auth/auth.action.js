@@ -5,7 +5,7 @@ import { Notify2 } from "../../../components/Toast/Toast";
 import { SIGN_IN, SIGN_OUT, SIGN_UP, GOOGLE_AUTH } from "./auth.type";
 
 // redux actions
-import { getMySelf, clearUser } from "../User/user.action";
+import { getMySelf, clearUser, getUser } from "../User/user.action";
 import { getTask } from "../Task/task.action";
 
 export var notify;
@@ -18,13 +18,17 @@ export const signIn = (userData) => async (dispatch) => {
       data: { credentials: userData },
     });
 
-    getMySelf();
-
+    getMySelf(User.data.token);
+    console.log(User);
     localStorage.setItem("todoAppUser", JSON.stringify(User.data.token));
     localStorage.setItem("todoAppUserID", JSON.stringify(User.data.id));
     localStorage.setItem("todoAppUserEmail", JSON.stringify(User.data.email));
-
+    localStorage.setItem("fullName", JSON.stringify(User.data.fullName));
+    // localStorage.setItem("verified", JSON.stringify(User.data.verified));
     isLoggedIn = 1;
+    console.log(User.data.id);
+    const x = await dispatch(getUser(User.data.id));
+    console.log(x);
     getTask();
     window.location.href = "http://localhost:3000/";
     return dispatch({ type: SIGN_IN, payload: User.data });
@@ -33,17 +37,20 @@ export const signIn = (userData) => async (dispatch) => {
   }
 };
 
-export const googleAuth = (token, id, email) => async (dispatch) => {
+export const googleAuth = (token, id) => async (dispatch) => {
   try {
     var x = JSON.stringify(token);
     var y = JSON.stringify(id);
-    var z = JSON.stringify(email);
+    getMySelf(x);
     localStorage.setItem("todoAppUser", x);
     localStorage.setItem("todoAppUserID", y);
-    localStorage.setItem("todoAppUserEmail", z);
+    const userid = await dispatch(getUser(y));
+    console.log(userid);
+    Email();
+
     dispatch({ type: GOOGLE_AUTH, payload: {} });
 
-    window.location.href = "http://localhost:3000/";
+    // window.location.href = "http://localhost:3000/";
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
   }
@@ -70,7 +77,7 @@ export const signUp = (userData) => async (dispatch) => {
     getTask();
 
     var users = localStorage.getItem("todoAppUserID");
-    var newUser = localStorage.getItem("newUser");
+
     var emailsent = localStorage.getItem("EmailSent");
     if (emailsent == true) {
       notify = function () {
@@ -78,8 +85,8 @@ export const signUp = (userData) => async (dispatch) => {
       };
     }
     console.log(users);
-    console.log(newUser);
-    if (users && newUser) {
+
+    if (users) {
       var promise2 = new Promise(Email());
       var y = await promise2;
       if (y) {
@@ -106,6 +113,8 @@ export const logOut = () => async (dispatch) => {
     localStorage.removeItem("todoAppUserEmail");
     localStorage.removeItem("todoAppUserName");
     localStorage.removeItem("EmailSent");
+    localStorage.removeItem("verified");
+    localStorage.removeItem("newUser");
     if (localStorage.getItem("newUser")) localStorage.removeItem("newUser");
     clearUser();
     window.location.href = "http://localhost:3000/";

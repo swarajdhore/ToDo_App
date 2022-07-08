@@ -9,7 +9,7 @@ function Profile() {
     const userList = savedUsers.fullName;
 
     console.log(userList);
-    var fName = userList;
+    var fName = savedUsers;
   }
   return (
     <div>
