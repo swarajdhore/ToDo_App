@@ -7,6 +7,7 @@ function EmailSent() {
   const emailCondition = localStorage.getItem("EmailSent");
   const submit = () => {
     Email();
+
   };
   return (
     <div className="flex items-center justify-center min-h-screen p-5 bg-gray-600 min-w-screen">

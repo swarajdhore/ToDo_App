@@ -1,2 +1,3 @@
 export const SENDEMAIL = "SENDEMAIL";
 export const VERIFYEMAIL = "VERIFYEMAIL";
+export const SUBSCRIBEEMAIL = "SUBSCRIBEEMAIL";

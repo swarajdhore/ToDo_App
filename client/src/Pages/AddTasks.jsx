@@ -1,9 +1,8 @@
 import { getTask } from "../Redux/Reducer/Task/task.action";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import Nav from "../components/Dashboard/Nav";
 import { addTask } from "../Redux/Reducer/Task/task.action";
-import Background_Image from "../components/Background_Image/Background_Image";
+
 export default function AddTasks() {
   const dispatch = useDispatch();
   const [taskData, setTaskData] = useState({
@@ -15,23 +14,38 @@ export default function AddTasks() {
 
   const handleChange = (event) => {
     setTaskData((prev) => ({ ...prev, [event.target.id]: event.target.value }));
+
   };
 
   const submit = () => {
-    setTaskData({
-      taskname: "",
-      taskdesc: "",
-      status: "",
-      time: "",
-    });
-    dispatch(
-      addTask({
+
+    const input = document.querySelector('input').value;
+    console.log(input);
+
+    if (input) {
+      setTaskData({
+        taskname: "",
+        taskdesc: "",
+        status: "",
+        time: "",
+      });
+    }
+
+    console.log(taskData.taskname)
+    console.log(taskData.taskdesc)
+    console.log(taskData.status)
+    console.log(taskData.time)
+
+    if (taskData.taskname && taskData.taskdesc && taskData.status && taskData.time) {
+      var x = dispatch(addTask({
         taskname: taskData.taskname,
         taskdesc: taskData.taskdesc,
         status: taskData.status,
         time: taskData.time,
-      })
-    );
+      }))
+    }
+    if (x)
+      getTask();
   };
 
   return (
@@ -54,7 +68,8 @@ export default function AddTasks() {
                 id="taskname"
                 onChange={handleChange}
                 value={taskData.taskname}
-                className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
+                required
+                className={`${taskData.taskname === "" ? "border-solid border-2 border-red-500 w-full p-2 text-primary  rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4" : `w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}`}
               ></input>
             </div>
             <div>
@@ -67,7 +82,8 @@ export default function AddTasks() {
                 id="taskdesc"
                 onChange={handleChange}
                 value={taskData.taskdesc}
-                className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
+                required
+                className={`${taskData.taskdesc === "" ? "border-solid border-2 border-red-500 w-full p-2 text-primary  rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4" : `w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}`}
               ></textarea>
             </div>
             <div>
@@ -80,7 +96,8 @@ export default function AddTasks() {
                 id="time"
                 value={taskData.time}
                 onChange={handleChange}
-                className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
+                required
+                className={`${taskData.time === "" ? "border-solid border-2 border-red-500 w-full p-2 text-primary  rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4" : `w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}`}
               />
             </div>
             <div>
@@ -93,20 +110,24 @@ export default function AddTasks() {
                 id="status"
                 value={taskData.status}
                 onChange={handleChange}
+                required
               >
                 <option value="--select--" selected className="font-semibold">
                   --select--
                 </option>
-                <option value="Pending">Pending</option>
+                <option value="Pending" defaultValue={"Pending"}>Pending</option>
                 <option value="Completed">Completed</option>
                 <option value="On-Hold">On-Hold</option>
               </select>
             </div>
             <div
-              className="mt-6 bg-blue-dark hover:bg-blue-faint text-center py-2 rounded border focus:outline-none"
+              className="mt-6 cursor-pointer bg-blue-dark hover:bg-blue-faint text-center py-2 rounded border focus:outline-none"
+              // {...taskData.time&&taskData.title&&taskData.taskdesc&&taskData.status && }
               onClick={submit}
+            // s
             >
-              <div onClick={getTask()}>Add Task</div>
+              <div onClick={getTask}> Add Task </div>
+              {/* <div > Add Task </div> */}
             </div>
           </form>
         </div>

@@ -9,17 +9,17 @@ export default function Logout() {
   const logOutHandler = (event) => {
     dispatch(logOut());
     event.preventDefault();
-    localStorage.removeItem()
+    localStorage.removeItem();
   };
-  // hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium
+  // hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium hover:text-red-500
   return (
-    <li className="list-none ml-10 inline space-between hover:text-red-500">
+    <div className="list-none  space-between ">
       <Link onClick={logOutHandler} to="/">
         <FiLogOut className="inline" />
 
-        <span className="mx-2">Logout</span>
+        <span className="">Logout</span>
       </Link>
-    </li>
+    </div>
   );
   // return (<li className=" hover:bg-blue-faint text-black px-3 py-2 rounded-md text-xl font-medium">
   //          <button onClick={logOutHandler}>

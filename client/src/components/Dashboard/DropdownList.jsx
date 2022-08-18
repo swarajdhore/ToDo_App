@@ -22,12 +22,12 @@ function DropdownList() {
 
   return (
     <div>
-      <div class="block" x-data="{open: false}">
+      <div className="block bg-black" x-data="{open: false}">
         <div
           onClick={handleChange}
-          className={`flex items-center justify-between hover:bg-gray-800 text-white cursor-pointer py-2.5 px-4 rounded  `}
+          className={`flex items-center justify-between hover:bg-gray-800 text-white cursor-pointer my-2 py-2.5 px-4 rounded  `}
         >
-          <div class="flex items-center space-x-2">
+          <div class="flex items-center  space-x-2">
             <svg
               class="w-6 h-6"
               fill="none"
@@ -42,7 +42,7 @@ function DropdownList() {
                 d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
               ></path>
             </svg>
-            <span>Content</span>
+            <span>Menu</span>
           </div>
           <svg
             x-show="open"
@@ -79,20 +79,24 @@ function DropdownList() {
           x-show="open"
           class="text-sm border-l-2 border-gray-800 mx-6 my-2.5 px-2.5 flex flex-col gap-y-1"
         >
-          <a
-            href="/dashboard"
-            class="block py-2 px-4 hover:bg-gray-800 text-white rounded"
-          >
-            Dashboard
-          </a>
-          <a
-            // href="/addtask"
-            onClick={openModal}
-            class="block py-2 px-4 hover:bg-gray-800 text-white rounded"
-          >
-            Add Task
-            {/* {setIsOpen && <MyModal />} */}
-          </a>
+          <button>
+            <a
+              href="/dashboard"
+              class="block py-2 px-4 hover:bg-gray-800 text-white rounded"
+            >
+              Dashboard
+            </a>
+          </button>
+          <button>
+            <a
+              // href="/addtask"
+              onClick={openModal}
+              class="block py-2 px-4 hover:bg-gray-800 text-white rounded"
+            >
+              Add Task
+              {/* {setIsOpen && <MyModal />} */}
+            </a>
+          </button>
           <div>
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -145,12 +149,14 @@ function DropdownList() {
             </Transition>
           </div>
 
-          <a
-            href="/"
-            class="block py-2 px-4 hover:bg-gray-800 text-white rounded"
-          >
-            Home
-          </a>
+          <button>
+            <a
+              href="/"
+              class="block py-2 px-4 hover:bg-gray-800 text-white rounded"
+            >
+              Home
+            </a>
+          </button>
         </div>
       </div>
     </div>

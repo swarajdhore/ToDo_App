@@ -28,7 +28,7 @@ export const getUser = (id) => async (dispatch) => {
       "todoAppUserEmail",
       JSON.stringify(User.data.user.email)
     );
-    localStorage.setItem("username", JSON.stringify(User.data.user.fullName));
+    localStorage.setItem("todoAppUserName", JSON.stringify(User.data.user.fullName));
     localStorage.setItem("verified", JSON.stringify(User.data.user.verified));
 
     return dispatch({ type: GET_USER, payload: User.data });

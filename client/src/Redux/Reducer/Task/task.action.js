@@ -1,7 +1,5 @@
 import axios from "axios";
 import Task from "../../../components/Task/Task";
-import Status from "../../../components/Task/Status";
-// import {useEffect} from "react";
 
 // Redux Types
 import {

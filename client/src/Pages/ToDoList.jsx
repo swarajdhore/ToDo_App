@@ -32,7 +32,7 @@ export default function ToDoList() {
       return <PaginationCompenent />;
     } else {
       return (
-        <div className="overflow-hidden">
+        <div className="overflow-y-scroll">
           <div className="h-screen flex ">
             <div className="w-2/4 my-32 ml-60 shadow-default py-10 px-8">
               {/* <div className="text-center">

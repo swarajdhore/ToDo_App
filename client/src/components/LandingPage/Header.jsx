@@ -18,9 +18,8 @@ function Header() {
   if (localStorage.getItem("todoAppUser")) {
     return (
       <header
-        className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${
-          !top && "bg-white backdrop-blur-sm shadow-lg"
-        }`}
+        className={`fixed w-full z-30 md:bg-opacity-90 transition bg-indigo-300 duration-300 ease-in-out ${!top && "bg-indigo-300 backdrop-blur-sm shadow-lg"
+          }`}
       >
         <div className="max-w-6xl mx-auto px-5 sm:px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -33,29 +32,29 @@ function Header() {
             </div>
 
             {/* Site navigation */}
-            <nav className="flex flex-grow">
-              <ul className="flex flex-grow justify-end flex-wrap items-center">
-                <li>
+            <nav className="flex">
+              <ul className="flex  sm:justify-center md:justify-end md:flex-wrap items-center">
+                {/* <li>
                   <Link
                     onClick={getTask()}
                     to="/todolist"
-                    className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                    className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-4"
                   >
                     ToDoList
                   </Link>
-                </li>
+                </li> */}
                 <li
                   onClick={getTask()}
                   className="btn-sm text-gray-200 bg-white-900 hover:bg-white-800 ml-3"
                 >
                   <Link
                     to="/dashboard"
-                    className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                    className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white lg:py-2 lg:px-4 border border-blue-500 hover:border-transparent rounded md:mx-4 sm:mx-2"
                   >
                     Dashboard
                   </Link>
                 </li>
-                <li className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
+                <li className="bg-transparent hover:bg-red-500 text-red-500  font-semibold hover:text-white md:py-2 md:px-4 border border-red-500 hover:border-transparent rounded md:mx-4 sm:mx-2">
                   <Logout />
                 </li>
               </ul>
@@ -67,11 +66,10 @@ function Header() {
   } else {
     return (
       <header
-        className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${
-          !top && "bg-white backdrop-blur-sm shadow-lg"
-        }`}
+        className={`fixed w-full z-30 md:bg-opacity-90 transition bg-indigo-300 duration-300 ease-in-out ${!top && "bg-indigo-300 backdrop-blur-sm shadow-lg"
+          }`}
       >
-        <div className="max-w-6xl mx-auto px-5 sm:px-6">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 ">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Site branding */}
             <div className="flex-shrink-0  scale-75">
@@ -87,27 +85,29 @@ function Header() {
                 <li>
                   <Link
                     to="/login"
-                    className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+
                   >
-                    Login
+                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-4">
+                      Login
+                    </button>
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/register"
-                    className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3"
+
                   >
-                    <span>Register</span>
-                    <svg
+                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Register</button>
+                    {/* <svg
                       className="w-3 h-3 fill-current text-gray-400 flex-shrink-0 ml-2 -mr-1"
                       viewBox="0 0 12 12"
                       xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
+                    > */}
+                    {/* <path
                         d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z"
                         fillRule="nonzero"
                       />
-                    </svg>
+                    </svg> */}
                   </Link>
                 </li>
               </ul>

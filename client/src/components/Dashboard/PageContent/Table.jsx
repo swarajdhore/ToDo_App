@@ -8,7 +8,7 @@ function Table() {
   };
 
   return (
-    <div className="overflow-hidden z-0">
+    <div className=" z-0 max-w-screen">
       <ToDoList />
     </div>
     /* <div class="bg-white shadow rounded-sm  ">

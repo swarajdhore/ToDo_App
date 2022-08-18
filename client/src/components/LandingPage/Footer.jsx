@@ -152,7 +152,7 @@ function Footer() {
           </ul> 
 
           {/* Copyrights note */}
-          <div className="text-sm text-gray-600 mr-4">Made with ❤  by Swaraj and Anish. All rights reserved.</div>
+          <div className="font-bold text-transparent text-xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Made with ❤  by Swaraj and Anish. All rights reserved.</div>
 
         </div>
 

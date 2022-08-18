@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Redux Types
-import { SENDEMAIL, VERIFYEMAIL } from "./email.type";
+import { SENDEMAIL, VERIFYEMAIL, SUBSCRIBEEMAIL } from "./email.type";
 
 export const sendEmail = () => async (dispatch) => {
   try {
@@ -34,6 +34,33 @@ export const sendEmail = () => async (dispatch) => {
     return dispatch({ type: SENDEMAIL, payload: Email.data });
   } catch (error) {
     dispatch({ type: "ERROR", payload: error });
+  }
+};
+
+export const subscribeEmail = (s_mail) => async (dispatch) => {
+  try {
+    var email = s_mail
+    console.log("1");
+    const Email = await axios({
+      method: "GET",
+      url: `http://localhost:4000/subscribe/${email}`,
+    });
+    //   console.log(User);
+    //   window.location.href = `http://localhost:3000/todolist/`;
+    //   localStorage.setItem("todoAppUser", JSON.stringify(User.data.token));
+    //   localStorage.setItem("todoAppUserID", JSON.stringify(User.data.id));
+    if(Email)
+   {
+    alert("You have successfully subscribed to our website for regular updates")
+   } 
+    //   const saved = localStorage.getItem("todoAppUserID");
+    //   const initialValue = JSON.stringify(saved);
+    //   console.log(initialValue);
+
+    return dispatch({ type: SUBSCRIBEEMAIL, payload: Email.data });
+  } catch (error) {
+    dispatch({ type: "ERROR", payload: error });
+    alert("Invalid Email")
   }
 };
 

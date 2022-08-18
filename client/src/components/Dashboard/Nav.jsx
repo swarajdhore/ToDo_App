@@ -11,12 +11,12 @@ function Nav() {
     <>
       <nav
         // onLoad={getUser()}
-        class="absolute md:relative w-64 transform -translate-x-full md:translate-x-0 overflow-y-scroll bg-black transition-all duration-300"
+        class="absolute sm:relative w-64 transform -translate-x-full sm:translate-x-0 overflow-y-scroll bg-black transition-all duration-300"
       >
         <div class="flex flex-col justify-between h-screen  sticky">
           <div class="p-4">
             <Logo />
-            <SearchBar />
+            {/* <SearchBar /> */}
             {/* <a
               href="#"
               class=" py-2.5 px-4 flex items-center space-x-2 bg-gray-800 text-white hover:bg-gray-800 hover:text-white rounded"

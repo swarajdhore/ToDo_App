@@ -52,7 +52,7 @@ function Navbar() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/todolist" element={<ToDoList />}></Route>
+            {/* <Route exact path="/todolist" element={<ToDoList />}></Route> */}
             {/* <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route> */}
             <Route exact path="/addtask" element={<AddTasks />}></Route>
@@ -60,7 +60,7 @@ function Navbar() {
             <Route exact path="/dashboard" element={<DASHBOARD />}></Route>
             <Route exact path="/profile" element={<Profile />}></Route>
             <Route exact path="/email" element={<Email />}></Route>
-            <Route exact path="/emailsent" element={<EmailSent />}></Route>
+            {/* <Route exact path="/emailsent" element={<EmailSent />}></Route> */}
             <Route
               exact
               path="/verify/:id/:token"
@@ -77,7 +77,7 @@ function Navbar() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/todolist" element={<ToDoList />}></Route>
+            {/* <Route exact path="/todolist" element={<ToDoList />}></Route> */}
             <Route exact path="/login" element={<LoginPage />}></Route>
             <Route exact path="/register" element={<RegisterPage />}></Route>
             <Route exact path="/addtask" element={<AddTasks />}></Route>
@@ -86,13 +86,13 @@ function Navbar() {
               path="/google/:token/:id"
               element={<GoogleAuth />}
             ></Route>
-            <Route
+            {/* <Route
               exact
               path="/verify/:id/:token"
               element={<EmailSent />}
-            ></Route>
-            <Route exact path="/email" element={<Email />}></Route>
-            <Route exact path="/emailsent" element={<EmailSent />}></Route>
+            ></Route> */}
+            {/* <Route exact path="/email" element={<Email />}></Route> */}
+            {/* <Route exact path="/emailsent" element={<EmailSent />}></Route> */}
             <Route path="*" element={<ErrorPage />}></Route>
           </Routes>
         </Router>

@@ -4,11 +4,17 @@ import { signIn } from "../Redux/Reducer/Auth/auth.action";
 import { getTask } from "../Redux/Reducer/Task/task.action";
 import Background_Image from "../components/Background_Image/Background_Image";
 // import Navbar from "../components/Navbar/Navbar";
-
+import { Notify4 } from "../components/Toast/Toast";
 // import {Formik} from "formik";
 // import * as EmailValidator from "email-validator"; // used when validating with a self-implemented approach
-// import * as Yup from "yup"; // used when validating with a pre-built solution
+// import * as Yup from "yup"; // used d validating with a pre-built solution
 import { FcGoogle } from "react-icons/fc";
+
+export var  notify4 = () => {
+    console.log("in notify 4");
+    return Notify4(); 
+  }
+
 
 export default function LoginPage(props) {
   const dispatch = useDispatch();
@@ -16,35 +22,35 @@ export default function LoginPage(props) {
     email: "",
     password: "",
   });
-  const [emailIsValid, setEmailIsValid] = useState();
-  const [passwordIsValid, setPasswordIsValid] = useState();
-  const [formIsValid, setFormIsValid] = useState(false);
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      // now we would only do this after 500 milliseconds
-      setFormIsValid(
-        (userData.email.includes("@claimgenius.com") ||
-          userData.email.includes("@gmail.com")) &&
-          userData.password.trim().length >= 6
-      );
-    }, 500);
+  // const [emailIsValid, setEmailIsValid] = useState();
+  // const [passwordIsValid, setPasswordIsValid] = useState();
+  // const [formIsValid, setFormIsValid] = useState(false);
+  // useEffect(() => {
+  //   const identifier = setTimeout(() => {
+  //     // now we would only do this after 500 milliseconds
+  //     setFormIsValid(
+  //       (userData.email.includes("@claimgenius.com") ||
+  //         userData.email.includes("@gmail.com")) &&
+  //         userData.password.trim().length >= 6
+  //     );
+  //   }, 500);
 
-    return () => {
-      // this function clears the timer set before it was set
-      clearTimeout(identifier);
-    };
-  }, [userData.email, userData.password]);
+  //   return () => {
+  //     // this function clears the timer set before it was set
+  //     clearTimeout(identifier);
+  //   };
+  // }, [userData.email, userData.password]);
 
-  const validateEmailHandler = () => {
-    setEmailIsValid(
-      userData.email.includes("@claimgenius.com") ||
-        userData.email.includes("@gmail.com")
-    );
-  };
+  // const validateEmailHandler = () => {
+  //   setEmailIsValid(
+  //     userData.email.includes("@claimgenius.com") ||
+  //       userData.email.includes("@gmail.com")
+  //   );
+  // };
 
-  const validatePasswordHandler = () => {
-    setPasswordIsValid(userData.password.trim().length >= 6);
-  };
+  // const validatePasswordHandler = () => {
+  //   setPasswordIsValid(userData.password.trim().length >= 6);
+  // };
 
   const handleChange = (event) => {
     setUserData((prev) => ({ ...prev, [event.target.id]: event.target.value }));
@@ -70,32 +76,32 @@ export default function LoginPage(props) {
   const googleSignIn = () =>
     (window.location.href = "http://localhost:4000/auth/google");
 
-  const emailerrorHandler = () => {
-    if (userData.email === "") {
-      return "";
-    } else {
-      if (
-        userData.email.includes("@claimgenius.com") ||
-        userData.email.includes("@gmail.com")
-      ) {
-        return " ";
-      } else {
-        return "Please enter a valid email";
-      }
-    }
-  };
+  // const emailerrorHandler = () => {
+  //   if (userData.email === "") {
+  //     return "";
+  //   } else {
+  //     if (
+  //       userData.email.includes("@claimgenius.com") ||
+  //       userData.email.includes("@gmail.com")
+  //     ) {
+  //       return " ";
+  //     } else {
+  //       return "Please enter a valid email";
+  //     }
+  //   }
+  // };
 
-  const passworderrorHandler = () => {
-    if (userData.password === "") {
-      return "";
-    } else {
-      if (userData.password.length >= 6) {
-        return " ";
-      } else {
-        return "Length must be greater than or equal to 6";
-      }
-    }
-  };
+  // const passworderrorHandler = () => {
+  //   if (userData.password === "") {
+  //     return "";
+  //   } else {
+  //     if (userData.password.length >= 6) {
+  //       return " ";
+  //     } else {
+  //       return "Length must be greater than or equal to 6";
+  //     }
+  //   }
+  // };
   return (
     <div>
       <section className="bg-[#F4F7FF] py-6 md:py-[50px]">
@@ -128,9 +134,7 @@ export default function LoginPage(props) {
                 </div>
                 <form>
                   <div
-                    className={`${
-                      emailIsValid === false ? "border-red-300" : ""
-                    } mb-6`}
+                    className="mb-6"
                   >
                     <input
                       type="text"
@@ -152,14 +156,12 @@ export default function LoginPage(props) {
                       id="email"
                       value={userData.email}
                       onChange={handleChange}
-                      onBlur={validateEmailHandler}
+                      // onBlur={validateEmailHandler}
                       required
                     />
                   </div>
                   <div
-                    className={`${
-                      passwordIsValid === false ? "border-red-300" : ""
-                    } mb-6`}
+                    className="mb-6"
                   >
                     <input
                       type="password"
@@ -182,7 +184,7 @@ export default function LoginPage(props) {
                       id="password"
                       value={userData.password}
                       onChange={handleChange}
-                      onBlur={validatePasswordHandler}
+                      // onBlur={validatePasswordHandler}
                       required
                     />
                   </div>
@@ -204,7 +206,7 @@ export default function LoginPage(props) {
                         transition
                         "
                       onload={getTask()}
-                      disabled={!formIsValid}
+                      // disabled={!formIsValid}
                     />
                   </div>
                 </form>

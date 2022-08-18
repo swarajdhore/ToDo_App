@@ -4,8 +4,17 @@ import Background_Image from "../components/Background_Image/Background_Image";
 import { signUp } from "../Redux/Reducer/Auth/auth.action";
 import { FcGoogle } from "react-icons/fc";
 import { Notify2 } from "../components/Toast/Toast";
+import { Notify3, Notify5 } from "../components/Toast/Toast";
 import { notify } from "../Redux/Reducer/Auth/auth.action";
 
+export var notify3 = () => {
+  console.log("in notify 3");
+  return Notify3();
+}
+export var notify5 = () => {
+  console.log("in notify 5");
+  return Notify5();
+}
 export default function RegisterPage() {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
@@ -21,6 +30,8 @@ export default function RegisterPage() {
   const handleChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
+
+
 
   const submit = () => {
     console.log("Hello World");
@@ -39,6 +50,12 @@ export default function RegisterPage() {
       })
     );
     notify();
+    notify3();
+    notify5();
+    if (localStorage.getItem("todoAppUserID")) {
+      document.getElementById("msg").innerHTML = "Email Sent successfully. Please check for verification."
+    }
+    // window.location.href("http://localhost:3000/")
   };
   var emailsent = localStorage.getItem("EmailSent");
 
@@ -190,6 +207,7 @@ export default function RegisterPage() {
                     />
                   </div>
                 </form>
+                <div id="msg"></div>
                 <p className="text-base mb-6 text-[#adadad]">Connect With</p>
                 <div className="flex justify-between -mx-2 mb-12">
                   <button

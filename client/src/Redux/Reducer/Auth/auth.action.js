@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Email } from "../../../components/Email/Email";
-import { Notify2 } from "../../../components/Toast/Toast";
+import { Notify2, Notify3 } from "../../../components/Toast/Toast";
+import { notify3, notify5 } from "../../../Pages/RegisterPage";
+import { notify4 } from "../../../Pages/LoginPage";
 // Redux Types
 import { SIGN_IN, SIGN_OUT, SIGN_UP, GOOGLE_AUTH } from "./auth.type";
 
@@ -9,6 +11,9 @@ import { getMySelf, clearUser, getUser } from "../User/user.action";
 import { getTask } from "../Task/task.action";
 
 export var notify;
+export var redux_login_error;
+export var redux_register_error;
+export var redux_register_success;
 export var isLoggedIn = 0;
 export const signIn = (userData) => async (dispatch) => {
   try {
@@ -33,7 +38,14 @@ export const signIn = (userData) => async (dispatch) => {
     window.location.href = "http://localhost:3000/";
     return dispatch({ type: SIGN_IN, payload: User.data });
   } catch (error) {
-    const redux_login_error = await dispatch({ type: "ERROR", payload: error });
+    const redux_login_error1 = await dispatch({
+      type: "ERROR",
+      payload: error,
+    });
+    redux_login_error = redux_login_error1.payload.response.data.error;
+    // console.log(redux_login_error.payload.response.data.error)
+    console.log(redux_login_error);
+    notify4();
   }
 };
 
@@ -44,9 +56,9 @@ export const googleAuth = (token, id) => async (dispatch) => {
     getMySelf(x);
     localStorage.setItem("todoAppUser", x);
     localStorage.setItem("todoAppUserID", y);
+    localStorage.setItem("verified", true);
     const userid = await dispatch(getUser(y));
     console.log(userid);
-    Email();
 
     dispatch({ type: GOOGLE_AUTH, payload: {} });
 
@@ -89,18 +101,36 @@ export const signUp = (userData) => async (dispatch) => {
     if (users) {
       var promise2 = new Promise(Email());
       var y = await promise2;
-      if (y) {
-        window.location.href = "http://localhost:3000/";
-      }
     }
+
     // y.then(function () {
 
     //   console.log("promise fulfilled");
     // });
 
-    return dispatch({ type: SIGN_UP, payload: User.data });
+    dispatch({
+      type: SIGN_UP,
+      payload: User.data,
+    });
+
+    redux_register_success =
+      "User registered successfully. Please check for your email for verification.";
   } catch (error) {
-    dispatch({ type: "ERROR", payload: error });
+    const redux_login_error1 = await dispatch({
+      type: "ERROR",
+      payload: error,
+    });
+    if (error)
+      redux_register_error = redux_login_error1.payload.response.data.error;
+    // console.log(redux_login_error.payload.response.data.error)
+    console.log(redux_register_error);
+    notify3();
+  } finally {
+    if (users) {
+      notify = function () {
+        return <Notify2 />;
+      };
+    }
   }
 };
 
@@ -109,7 +139,7 @@ export const logOut = () => async (dispatch) => {
     localStorage.removeItem("todoAppUser");
     localStorage.removeItem("todoAppUserID");
     localStorage.removeItem("tasks");
-    localStorage.removeItem("username");
+
     localStorage.removeItem("todoAppUserEmail");
     localStorage.removeItem("todoAppUserName");
     localStorage.removeItem("EmailSent");

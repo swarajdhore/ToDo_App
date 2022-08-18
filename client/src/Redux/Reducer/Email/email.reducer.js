@@ -1,4 +1,4 @@
-import { SENDEMAIL, VERIFYEMAIL } from "./email.type";
+import { SENDEMAIL, VERIFYEMAIL, SUBSCRIBEEMAIL } from "./email.type";
 
 const initialState = {};
 
@@ -9,6 +9,11 @@ const EmailReducer = (state = initialState, action) => {
         ...state,
       };
     case VERIFYEMAIL:
+      return {
+        ...state,
+      };
+
+      case SUBSCRIBEEMAIL:
       return {
         ...state,
       };

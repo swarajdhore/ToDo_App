@@ -6,7 +6,7 @@ function Logo() {
     <div className="space-x-4">
       <a class="flex items-center text-white " href="">
         <MyLogo />
-        <span class="text-2xl font-bold mr-6">TodoList</span>
+        <span class="text-2xl font-bold mr-6">Tasky</span>
       </a>
     </div>
   );

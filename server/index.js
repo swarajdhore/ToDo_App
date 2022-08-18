@@ -13,6 +13,7 @@ import Auth from "./API/Auth/index";
 import Task from "./API/Task/index";
 import User from "./API/User/index";
 import Email from "./API/EmailVerification/index";
+import Subscribe from "./API/Subscribe/index";
 
 //Database Connection
 import ConnectDB from "./database/connection";
@@ -40,6 +41,7 @@ TodoApp.use("/auth", Auth);
 TodoApp.use("/task", Task);
 TodoApp.use("/user", User);
 TodoApp.use("/verify", Email);
+TodoApp.use("/subscribe", Subscribe);
 // TodoApp.get("/home",(req,res)=>{
 //     res.json({task:database.task})
 // });

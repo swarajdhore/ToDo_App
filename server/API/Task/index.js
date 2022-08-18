@@ -224,7 +224,7 @@ Router.delete(
   async (req, res) => {
     try {
       const { userid } = req.params;
-      const { id_data } = req.body;
+      const { tasks } = req.body;
 
       // console.log(_id);
       // console.log(_id.length);
@@ -256,7 +256,7 @@ Router.delete(
       //const deleteTask = await TaskModel.deleteOne({'tasks._id':_id},{new:true})
       const deleteTask = await TaskModel.updateMany(
         { user: userid },
-        { $pull: { tasks: { _id: id_data } } }
+        { $pull: { tasks: { _id: tasks } } }
       );
       console.log(deleteTask);
       const TasksUpdated = await TaskModel.find({}, { new: true });

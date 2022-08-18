@@ -6,7 +6,64 @@ import { ToastContainer } from "react-toastify";
 
 function HeroHome() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  
+  var TxtType = function(el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 2000;
+    this.txt = '';
+    this.tick();
+    this.isDeleting = false;
+};
 
+TxtType.prototype.tick = function() {
+    var i = this.loopNum % this.toRotate.length;
+    var fullTxt = this.toRotate[i];
+
+    if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+    }
+
+    this.el.innerHTML = '<span class="wrap" className = "text-6xl mb-10 font-bold text-transparent  bg-clip-text bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500" >'+this.txt+'</span>';
+
+    var that = this;
+    var delta = 200 - Math.random() * 100;
+
+    if (this.isDeleting) { delta /= 2; }
+
+    if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+    }
+
+    setTimeout(function() {
+    that.tick();
+    }, delta);
+};
+//  window.location.reload()
+ window.onload= function() {
+    var elements = document.getElementsByClassName('typewrite');
+    for (var i=0; i<elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-type');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtType(elements[i], JSON.parse(toRotate), period);
+        }
+    }
+    //INJECT CSS
+    // var css = document.createElement("style");
+   
+    // //css.innerHTML = ".typewrite > .wrap {}";
+    // document.body.appendChild(css);
+
+};
   return (
     <>
       {/* <Notify /> */}
@@ -28,7 +85,7 @@ function HeroHome() {
                 x1="50%"
                 y1="0%"
                 x2="50%"
-                y2="100%"
+                y2="50%"
                 id="illustration-01"
               >
                 <stop stopColor="#FFF" offset="0%" />
@@ -37,7 +94,7 @@ function HeroHome() {
               </linearGradient>
             </defs>
             <g fill="url(#illustration-01)" fillRule="evenodd">
-              <circle cx="1232" cy="128" r="128" />
+              <circle cx="1300" cy="80" r="100" />
               <circle cx="155" cy="443" r="64" />
             </g>
           </svg>
@@ -76,7 +133,7 @@ function HeroHome() {
                   data-aos="zoom-y-out"
                   data-aos-delay="300"
                 >
-                  <div>
+                  {/* <div>
                     <a>
                       <button
                         className=" inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
@@ -95,13 +152,13 @@ function HeroHome() {
                     >
                       Learn more
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
 
             {/* Hero image */}
-            <div>
+            {/* <div>
               <div
                 className="relative flex justify-center mb-8"
                 data-aos="zoom-y-out"
@@ -207,7 +264,7 @@ function HeroHome() {
                 </button>
               </div>
 
-              {/* Modal */}
+              {/* Modal 
               <Modal
                 id="modal"
                 ariaLabel="modal-headline"
@@ -221,11 +278,23 @@ function HeroHome() {
                     title="Video"
                     allowFullScreen
                   ></iframe>
-                </div> */}
+                </div> 
               </Modal>
-            </div>
-          </div>
+            </div> **/}
+            <div className = " text-center text-6xl mb-10 font-bold text-transparent  bg-clip-text bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500">
+        <h1>
+        <span className = "text-center text-6xl mb-10 font-bold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">Tasky helps you to </span> 
+  <a href="" class="typewrite"   data-period="2000" data-type='[ " Schedule", " Manage", " Track" ]'>
+  
+    <span  class="wrap" ></span>
+  </a>
+  
+</h1>
+
+</div>
+           </div> 
         </div>
+        
       </section>
     </>
   );

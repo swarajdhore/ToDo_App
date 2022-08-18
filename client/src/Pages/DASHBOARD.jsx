@@ -2,8 +2,8 @@ import React from "react";
 import axios from "axios";
 import Nav from "../components/Dashboard/Nav";
 import PageContent from "../components/Dashboard/PageContent";
-import { getTask } from "../Redux/Reducer/Task/task.action";
 import EmailSent from "./EmailSent";
+import { getTask } from "../Redux/Reducer/Task/task.action";
 
 // import { User } from "../Redux/Reducer/User/user.action";
 

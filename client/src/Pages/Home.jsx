@@ -31,7 +31,7 @@ function Home() {
               <HeroHome />
               <FeaturesHome />
               <FeaturesBlocks />
-              <Testimonials />
+              {/* <Testimonials /> */}
               <Newsletter />
             </main>
             {/*  Site footer */}
@@ -53,7 +53,7 @@ function Home() {
             <HeroHome />
             <FeaturesHome />
             <FeaturesBlocks />
-            <Testimonials />
+            {/* <Testimonials /> */}
             <Newsletter />
           </main>
           {/*  Site footer */}
